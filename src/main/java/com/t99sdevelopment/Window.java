@@ -3,7 +3,6 @@ package com.t99sdevelopment;
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 11:45AM - March 16th, 2017.
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class Window extends JFrame implements Runnable{
@@ -23,8 +22,6 @@ public class Window extends JFrame implements Runnable{
         windowTitle = title;
 
     }
-
-
 
     public void showWindow() {
 
@@ -66,7 +63,9 @@ public class Window extends JFrame implements Runnable{
         // Close JButton (close_Button) option setting...
 
         close_Button.setText("Close");
+
         Close closeActionListener = new Close(0);
+
         close_Button.addActionListener(closeActionListener);
 
         addItem(

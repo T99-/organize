@@ -17,7 +17,7 @@ public class Close implements ActionListener{
 
     public Close(){
 
-
+        this.exitStatus = 0;
 
     }
 
