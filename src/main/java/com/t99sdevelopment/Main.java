@@ -6,13 +6,15 @@ public class Main {
 
     public static void main(String[] args){
 
-        MainWindow window = new MainWindow("My Application");
-
-        window.createAndShowGUI();
+        Window window = new Window("organize");
 
         Thread windowTime = new Thread(window);
 
+        window.showWindow();
+
         windowTime.start();
+
+
 
     }
 
