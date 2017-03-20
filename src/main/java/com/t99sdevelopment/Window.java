@@ -46,52 +46,30 @@ public class Window extends JFrame implements Runnable{
     private void initializePanel(){
 
         // Time JLabel (time_Label) option setting...
-
         time_Label.setHorizontalAlignment(JTextField.CENTER);
-
-        addItem(
-                time_Label,
-                GridBagConstraints.HORIZONTAL,
-                3,
-                1,
-                0.5,
-                0.5,
-                2,
-                2
-        );
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridwidth = 3;
+        constraints.gridheight = 1;
+        constraints.weightx = 0.5;
+        constraints.weighty = 0.5;
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        panel.add(time_Label, constraints);
 
         // Close JButton (close_Button) option setting...
-
         close_Button.setText("Close");
-
         Close closeActionListener = new Close(0);
-
         close_Button.addActionListener(closeActionListener);
-
-        addItem(
-                close_Button,
-                GridBagConstraints.HORIZONTAL,
-                1,
-                1,
-                0.5,
-                0.5,
-                3,
-                3
-        );
-
-    }
-
-    private void addItem(Component component, int fillValue, int gridwidthValue, int gridheightValue, double weightxValue, double weightyValue, int gridxValue, int gridyValue){
-
-        constraints.fill = fillValue;
-        constraints.gridwidth = gridwidthValue;
-        constraints.gridheight = gridheightValue;
-        constraints.weightx = weightxValue;
-        constraints.weighty = weightyValue;
-        constraints.gridx = gridxValue;
-        constraints.gridy = gridyValue;
-
-        panel.add(component, constraints);
+        constraints.fill = GridBagConstraints.NONE;
+        constraints.anchor = GridBagConstraints.LINE_END;
+        constraints.insets = new Insets(0,0,0,10);
+        constraints.gridwidth = 1;
+        constraints.gridheight = 1;
+        constraints.weightx = 1;
+        constraints.weighty = 1;
+        constraints.gridx = 2;
+        constraints.gridy = 2;
+        panel.add(close_Button, constraints);
 
     }
 
