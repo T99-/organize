@@ -28,7 +28,7 @@ public class jsonHandler {
         String JSONText = JSONStringWriter.toString();
         System.out.println(JSONText);
 
-        System.out.println(DateChanger.getDate());
+        System.out.println(DateChanger.getTime());
 
     }
 

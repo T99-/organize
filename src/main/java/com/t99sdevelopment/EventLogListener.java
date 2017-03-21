@@ -17,7 +17,7 @@ public class EventLogListener implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
 
-
+        Window.appendNewEvent(DateChanger.getTime(), Window.getEventLogText());
 
     }
 
