@@ -4,34 +4,12 @@ package com.t99sdevelopment;
 
 public class Main {
 
-    private Window window = new Window("organize");
-
-    private Thread windowTime = new Thread(window);
-
     public static void main(String[] args){
 
-        Main main = new Main();
+        Window.showWindow();
 
-        main.startWindow();
-
-    }
-
-    public void startWindow(){
-
-        window.showWindow();
+        Thread windowTime = new Thread(new Window());
         windowTime.start();
-
-    }
-
-    public Window getWindow(){
-
-        return window;
-
-    }
-
-    public Thread getWindowTime(){
-
-        return windowTime;
 
     }
 

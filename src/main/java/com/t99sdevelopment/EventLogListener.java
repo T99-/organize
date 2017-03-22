@@ -7,17 +7,13 @@ import java.awt.event.ActionListener;
 
 public class EventLogListener implements ActionListener{
 
-    private String timestamp;
-
-    public EventLogListener(String timeOnClick){
-
-        timestamp = timeOnClick;
-
-    }
-
     public void actionPerformed(ActionEvent e) {
 
-        Window.appendNewEvent(DateChanger.getTime(), Window.getEventLogText());
+        if(Window.getEventLogText().length() != 0){
+
+            Window.appendNewEvent(DateChanger.getTime(), Window.getEventLogText());
+
+        }
 
     }
 

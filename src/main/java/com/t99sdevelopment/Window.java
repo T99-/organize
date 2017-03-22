@@ -7,39 +7,30 @@ import javax.swing.*;
 
 public class Window extends JFrame implements Runnable{
 
-    private JFrame frame = new JFrame();
-    private JPanel panel = new JPanel(new GridBagLayout());
-    private JLabel time_Label = new JLabel();
-    private JButton submit_Button = new JButton();
-    private JTextField event_TextField = new JTextField();
-    private JTextArea log_TextArea = new JTextArea();
-    private JScrollPane scrollPane = new JScrollPane(log_TextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-    private JButton close_Button = new JButton();
+    private static JFrame frame = new JFrame();
+    private static JPanel panel = new JPanel(new GridBagLayout());
+    private static JLabel time_Label = new JLabel();
+    private static JButton submit_Button = new JButton();
+    private static JTextField event_TextField = new JTextField();
+    private static JTextArea log_TextArea = new JTextArea();
+    private static JScrollPane scrollPane = new JScrollPane(log_TextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    private static JButton close_Button = new JButton();
 
-    private GridBagConstraints constraints = new GridBagConstraints();
-    private Dimension dimension = new Dimension(500, 200);
+    private static GridBagConstraints constraints = new GridBagConstraints();
+    private static Dimension dimension = new Dimension(500, 200);
 
-    private String windowTitle;
-    
-    public Window(String title){
-
-        windowTitle = title;
-
-    }
-
-    public void showWindow() {
+    public static void showWindow() {
 
         initializeWindow();
         frame.setVisible(true);
 
     }
 
-    private void initializeWindow(){
+    private static void initializeWindow(){
 
         initializePanel();
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle(windowTitle);
+        frame.setTitle("organize");
         frame.setMinimumSize(dimension);
         frame.add(panel);
         frame.setResizable(false);
@@ -48,7 +39,7 @@ public class Window extends JFrame implements Runnable{
 
     }
 
-    private void initializePanel(){
+    private static void initializePanel(){
 
         // Time JLabel (time_Label) option setting...
         time_Label.setHorizontalAlignment(JTextField.CENTER);
@@ -65,7 +56,7 @@ public class Window extends JFrame implements Runnable{
 
         // Submit JButton (submit_Button) option setting...
         submit_Button.setText("Submit");
-        EventLogListener eventLogActionListener = new EventLogListener(time_Label.getText());
+        EventLogListener eventLogActionListener = new EventLogListener();
         submit_Button.addActionListener(eventLogActionListener);
         constraints.gridx = 0;
         constraints.gridy = 1;
@@ -78,9 +69,10 @@ public class Window extends JFrame implements Runnable{
         panel.add(submit_Button, constraints);
 
         // Event JTextField (event_TextField) option setting...
-        event_TextField.setText("example event text here");
+        event_TextField.setText("");
         event_TextField.setColumns(50);
         event_TextField.setEditable(true);
+        event_TextField.addActionListener(eventLogActionListener);
         constraints.gridx = 1;
         constraints.gridy = 1;
         constraints.gridwidth = 2;
@@ -92,7 +84,7 @@ public class Window extends JFrame implements Runnable{
         panel.add(event_TextField, constraints);
 
         // Logs JTextArea (logs_TextArea) option setting...
-        log_TextArea.setText("[06:24:33 PM] Example log message displayed here.\n[06:25:13 PM] Another example log message displayed here.");
+        log_TextArea.setText(null);
         log_TextArea.setEditable(false);
         log_TextArea.setSize(new Dimension(400, 400));
         log_TextArea.setColumns(100);
@@ -129,7 +121,23 @@ public class Window extends JFrame implements Runnable{
 
     }
 
-    public String getEventLogText(){
+    public static void appendNewEvent(String timestamp, String event){
+
+        if(log_TextArea.getText().length() == 0){
+
+            log_TextArea.append("[" + timestamp + "] " + event);
+
+        } else {
+
+            log_TextArea.append("\n[" + timestamp + "] " + event);
+
+        }
+
+        event_TextField.setText("");
+
+    }
+
+    public static String getEventLogText(){
 
         return event_TextField.getText();
 
@@ -139,7 +147,7 @@ public class Window extends JFrame implements Runnable{
 
         while(true){
 
-            time_Label.setText(DateChanger.getDate());
+            time_Label.setText(DateChanger.getTime());
 
         }
 
