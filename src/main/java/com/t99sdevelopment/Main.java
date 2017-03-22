@@ -6,12 +6,9 @@ public class Main {
 
     public static void main(String[] args){
 
-        Window window = new Window("organize");
+        Window.showWindow();
 
-        Thread windowTime = new Thread(window);
-
-        window.showWindow();
-
+        Thread windowTime = new Thread(new Window());
         windowTime.start();
 
     }

@@ -1,21 +1,21 @@
 package com.t99sdevelopment;
 
-import org.joda.time.DateTime;
-
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 8:10AM - March 14th, 2017.
+
+import org.joda.time.DateTime;
 
 public class DateChanger{
 
-    public static String getDate(){
+    public static String getTime(){
 
-        return dateFinder();
+        return timeFinder();
 
     }
 
-    private static String dateFinder() {
+    private static String timeFinder() {
 
-        DateTime dateObject = new DateTime();
-        int preHour = dateObject.getHourOfDay();
+        DateTime timeObject = new DateTime();
+        int preHour = timeObject.getHourOfDay();
         int hour;
         String AMPM;
 
@@ -36,7 +36,7 @@ public class DateChanger{
 
         }
 
-        return String.format("%02d:%02d:%02d %s", hour, dateObject.getMinuteOfHour(), dateObject.getSecondOfMinute(), AMPM);
+        return String.format("%02d:%02d:%02d %s", hour, timeObject.getMinuteOfHour(), timeObject.getSecondOfMinute(), AMPM);
 
     }
 
