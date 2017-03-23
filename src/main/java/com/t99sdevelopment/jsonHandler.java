@@ -13,23 +13,23 @@ import java.io.StringWriter;
 
 public class jsonHandler {
 
-    public void jsonTest() {
+	public void jsonTest() {
 
-        JSONObject testObject = new JSONObject();
+		JSONObject testObject = new JSONObject();
 
-        testObject.put("name", "testjsonstuff");
-        testObject.put("testvalue", new Integer(5));
+		testObject.put("name", "testjsonstuff");
+		testObject.put("testvalue", new Integer(5));
 
-        System.out.println(testObject);
+		System.out.println(testObject);
 
-        StringWriter JSONStringWriter = new StringWriter();
-        testObject.write(JSONStringWriter);
+		StringWriter JSONStringWriter = new StringWriter();
+		testObject.write(JSONStringWriter);
 
-        String JSONText = JSONStringWriter.toString();
-        System.out.println(JSONText);
+		String JSONText = JSONStringWriter.toString();
+		System.out.println(JSONText);
 
-        System.out.println(DateChanger.getTime());
+		System.out.println(DateChanger.getTime());
 
-    }
+	}
 
 }

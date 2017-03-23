@@ -7,24 +7,24 @@ import java.awt.event.ActionListener;
 
 public class ShutdownListener implements ActionListener{
 
-    int exitStatus = 0;
+	int exitStatus = 0;
 
-    public ShutdownListener(int exitStatus){
+	public ShutdownListener(int exitStatus){
 
-        this.exitStatus = exitStatus;
+		this.exitStatus = exitStatus;
 
-    }
+	}
 
-    public ShutdownListener(){
+	public ShutdownListener(){
 
-        this.exitStatus = 0;
+		this.exitStatus = 0;
 
-    }
+	}
 
-    public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {
 
-        System.exit(exitStatus);
+		System.exit(exitStatus);
 
-    }
+	}
 
 }

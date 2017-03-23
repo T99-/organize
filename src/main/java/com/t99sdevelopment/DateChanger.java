@@ -6,38 +6,38 @@ import org.joda.time.DateTime;
 
 public class DateChanger{
 
-    public static String getTime(){
+	public static String getTime(){
 
-        return timeFinder();
+		return timeFinder();
 
-    }
+	}
 
-    private static String timeFinder() {
+	private static String timeFinder() {
 
-        DateTime timeObject = new DateTime();
-        int preHour = timeObject.getHourOfDay();
-        int hour;
-        String AMPM;
+		DateTime timeObject = new DateTime();
+		int preHour = timeObject.getHourOfDay();
+		int hour;
+		String AMPM;
 
-        if (preHour < 13) {
+		if (preHour < 13) {
 
-            hour = preHour;
-            AMPM = "AM";
+			hour = preHour;
+			AMPM = "AM";
 
-        } else if (preHour >= 13) {
+		} else if (preHour >= 13) {
 
-            hour = preHour - 12;
-            AMPM = "PM";
+			hour = preHour - 12;
+			AMPM = "PM";
 
-        } else {
+		} else {
 
-            hour = 0;
-            AMPM = "ERR";
+			hour = 0;
+			AMPM = "ERR";
 
-        }
+		}
 
-        return String.format("%02d:%02d:%02d %s", hour, timeObject.getMinuteOfHour(), timeObject.getSecondOfMinute(), AMPM);
+		return String.format("%02d:%02d:%02d %s", hour, timeObject.getMinuteOfHour(), timeObject.getSecondOfMinute(), AMPM);
 
-    }
+	}
 
 }
