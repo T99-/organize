@@ -5,7 +5,7 @@ package com.t99sdevelopment;
 public class Main {
 
 	public static void main(String[] args){
-
+		
 		Window.showWindow();
 
 		Thread windowTime = new Thread(new Window());
