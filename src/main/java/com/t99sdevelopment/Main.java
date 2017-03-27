@@ -4,13 +4,13 @@ package com.t99sdevelopment;
 
 public class Main {
 
-    public static void main(String[] args){
+	public static void main(String[] args){
+		
+		Window.showWindow();
 
-        Window.showWindow();
+		Thread windowTime = new Thread(new Window());
+		windowTime.start();
 
-        Thread windowTime = new Thread(new Window());
-        windowTime.start();
-
-    }
+	}
 
 }
