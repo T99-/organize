@@ -3,18 +3,47 @@ package com.t99sdevelopment;
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 11:45AM - March 16th, 2017.
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 public class Window extends JFrame implements Runnable{
 
+	public static LogListModel log = new LogListModel();
+	
 	private static JFrame frame = new JFrame();
-	private static JPanel panel = new JPanel(new GridBagLayout());
-	private static JLabel time_Label = new JLabel();
-	private static JButton submit_Button = new JButton();
-	private static JTextField event_TextField = new JTextField();
-	private static JTextArea log_TextArea = new JTextArea();
-	private static JScrollPane scrollPane = new JScrollPane(log_TextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	private static JButton close_Button = new JButton();
+	
+		private static JMenuBar menuBar = new JMenuBar();
+		private static JMenu file_Menu = new JMenu("File");
+			private static JMenuItem open_File_MenuItem = new JMenuItem("Open...");
+			private static JMenuItem reset_File_MenuItem = new JMenuItem("Reset Log");
+			private static JMenuItem close_File_MenuItem = new JMenuItem("Close");
+		private static JMenu edit_Menu = new JMenu("Edit");
+			private static JMenuItem undo_Edit_MenuItem = new JMenuItem("Undo");
+			private static JMenuItem redo_Edit_MenuItem = new JMenuItem("Redo");
+		private static JMenu about_Menu = new JMenu("About");
+	
+		private static JPanel panel = new JPanel(new GridBagLayout());
+			private static JLabel time_Label = new JLabel();
+			private static JButton submit_Button = new JButton();
+			private static JTextField event_TextField = new JTextField();
+			static JList log_List = new JList(log.toArray()); //not sure if this being public is the best solution to the problem...
+				private static JPopupMenu logCell_PopupMenu = new JPopupMenu();
+					private static JMenuItem edit_logCell_MenuItem = new JMenuItem();
+					private static JMenuItem delete_logCell_MenuItem = new JMenuItem();
+			private static JScrollPane scrollPane = new JScrollPane(log_List, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+			private static JButton close_Button = new JButton();
+	
+		private static JDialog edit_Dialog = new JDialog(frame);
+			private static JPanel edit_Dialog_Panel = new JPanel();
+				private static JTextField edit_Dialog_edit_TextField = new JTextField();
+				private static JPanel edit_Dialog_subpanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
+				private static JButton edit_Dialog_submit_Button = new JButton();
+				private static JButton edit_Dialog_cancel_Button = new JButton();
+	
+	private static EventLogListener eventLogActionListener = new EventLogListener();
+	private static LogEditorListener logEditorActionListener = new LogEditorListener();
+	private static ShutdownListener shutdownActionListener = new ShutdownListener(0);
 	
 	private static GridBagConstraints constraints = new GridBagConstraints();
 	private static Dimension dimension = new Dimension(500, 200);
@@ -27,15 +56,20 @@ public class Window extends JFrame implements Runnable{
 	}
 
 	private static void initializeWindow(){
-
+		
+		initializeRightMousePopupMenu();
+		initializeLogItemEditDialog();
+		initializeMenuBar();
+		frame.setJMenuBar(menuBar);
 		initializePanel();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("organize");
-		frame.setMinimumSize(dimension);
 		frame.add(panel);
+		frame.setTitle("organize");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setMinimumSize(dimension);
 		frame.setResizable(false);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
+		edit_Dialog.setLocationRelativeTo(null);
 
 	}
 
@@ -56,7 +90,6 @@ public class Window extends JFrame implements Runnable{
 
 		// Submit JButton (submit_Button) option setting...
 		submit_Button.setText("Submit");
-		EventLogListener eventLogActionListener = new EventLogListener();
 		submit_Button.addActionListener(eventLogActionListener);
 		constraints.gridx = 0;
 		constraints.gridy = 1;
@@ -69,7 +102,6 @@ public class Window extends JFrame implements Runnable{
 		panel.add(submit_Button, constraints);
 
 		// Event JTextField (event_TextField) option setting...
-		event_TextField.setText("");
 		event_TextField.setColumns(50);
 		event_TextField.setEditable(true);
 		event_TextField.addActionListener(eventLogActionListener);
@@ -84,13 +116,7 @@ public class Window extends JFrame implements Runnable{
 		panel.add(event_TextField, constraints);
 		
 		// Logs JTextArea (logs_TextArea) option setting...
-		log_TextArea.setText(null);
-		log_TextArea.setEditable(false);
-		log_TextArea.setSize(new Dimension(400, 400));
-		log_TextArea.setColumns(100);
-		log_TextArea.setRows(20);
-		log_TextArea.setLineWrap(true);
-		log_TextArea.setWrapStyleWord(true);
+		log_List.setModel(log);
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridwidth = 3;
@@ -104,7 +130,6 @@ public class Window extends JFrame implements Runnable{
 
 		// Close JButton (close_Button) option setting...
 		close_Button.setText("Close");
-		ShutdownListener shutdownActionListener = new ShutdownListener(0);
 		close_Button.addActionListener(shutdownActionListener);
 		constraints.gridx = 2;
 		constraints.gridy = 3;
@@ -119,19 +144,104 @@ public class Window extends JFrame implements Runnable{
 		panel.add(close_Button, constraints);
 
 	}
+	
+	private static void initializeMenuBar(){
+		
+		open_File_MenuItem.setToolTipText("This doesn't do anything right now!");
+		undo_Edit_MenuItem.setToolTipText("This doesn't do anything right now!");
+		redo_Edit_MenuItem.setToolTipText("This doesn't do anything right now!");
+		about_Menu.setToolTipText("This doesn't do anything right now!");
+		
+		reset_File_MenuItem.addActionListener(n -> log.clear());
+		close_File_MenuItem.addActionListener(shutdownActionListener);
+		
+		file_Menu.add(open_File_MenuItem);
+		file_Menu.addSeparator();
+		file_Menu.add(reset_File_MenuItem);
+		file_Menu.add(close_File_MenuItem);
+		
+		
+		edit_Menu.add(undo_Edit_MenuItem);
+		edit_Menu.add(redo_Edit_MenuItem);
+		
+		menuBar.add(file_Menu);
+		menuBar.add(edit_Menu);
+		menuBar.add(about_Menu);
+	
+	}
+	
+	private static void initializeRightMousePopupMenu(){
+		
+		log_List.addMouseListener(new MouseAdapter(){
+			
+			public void mouseReleased(MouseEvent e){
+				
+				if(SwingUtilities.isRightMouseButton(e)){
+					
+					log_List.setSelectedIndex(log_List.locationToIndex(e.getPoint()));
+					edit_Dialog_edit_TextField.setText(log.getEvent(log_List.getSelectedIndex()));
+					logCell_PopupMenu.show(e.getComponent(), e.getX(), e.getY());
+					
+				}
+				
+			}
+			
+		});
+		
+		edit_logCell_MenuItem.setText("Edit");
+		edit_logCell_MenuItem.addActionListener(e -> edit_Dialog.setVisible(true));
+		logCell_PopupMenu.add(edit_logCell_MenuItem);
+		
+		delete_logCell_MenuItem.setText("Delete");
+		delete_logCell_MenuItem.addActionListener(e -> log.remove(log_List.getSelectedIndex()));
+		logCell_PopupMenu.add(delete_logCell_MenuItem);
+		
+	}
+	
+	private static void initializeLogItemEditDialog(){
+		
+		edit_Dialog_Panel.setLayout(new BoxLayout(edit_Dialog_Panel, BoxLayout.Y_AXIS));
+		
+		edit_Dialog_Panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		
+		// Edit JTextField (edit_Dialog_edit_TextField) option setting...
+		edit_Dialog_edit_TextField.setColumns(50);
+		edit_Dialog_edit_TextField.addActionListener(logEditorActionListener);
+		edit_Dialog_Panel.add(edit_Dialog_edit_TextField);
+		
+		edit_Dialog_Panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		
+		edit_Dialog_subpanel.add(Box.createRigidArea(new Dimension(250, 0)));
+		
+		// Submit JButton (edit_Dialog_submit_Button) option setting...
+		edit_Dialog_submit_Button.setText("OK");
+		edit_Dialog_submit_Button.addActionListener(logEditorActionListener);
+		edit_Dialog_subpanel.add(edit_Dialog_submit_Button);
+		
+		// Cancel JButton (edit_Dialog_cancel_Button) option setting...
+		edit_Dialog_cancel_Button.setText("Cancel");
+		edit_Dialog_cancel_Button.addActionListener(e -> disposeEditDialog());
+		edit_Dialog_subpanel.setBackground(new Color(35, 100, 50, 1));
+		edit_Dialog_subpanel.add(edit_Dialog_cancel_Button);
+		
+		edit_Dialog_Panel.add(edit_Dialog_subpanel);
+		edit_Dialog_Panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		
+		edit_Dialog.setModal(true);
+		edit_Dialog.setSize(new Dimension(500, 150));
+		edit_Dialog.setTitle("Edit");
+		edit_Dialog.add(edit_Dialog_Panel);
+		edit_Dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		edit_Dialog.pack();
+		
+	}
+	
+	public static void appendNewEvent(String event){
 
-	public static void appendNewEvent(String timestamp, String event){
-
-		if(log_TextArea.getText().length() == 0){
-
-			log_TextArea.append("[" + timestamp + "] " + event);
-
-		} else {
-
-			log_TextArea.append("\n[" + timestamp + "] " + event);
-
-		}
-
+		log.addElement(new LogItem(event));
+		
+		log_List.ensureIndexIsVisible(log_List.getModel().getSize() - 1);
+		
 		event_TextField.setText("");
 
 	}
@@ -140,6 +250,18 @@ public class Window extends JFrame implements Runnable{
 
 		return event_TextField.getText();
 
+	}
+	
+	public static String getEditedDialogText(){
+		
+		return edit_Dialog_edit_TextField.getText();
+		
+	}
+	
+	public static void disposeEditDialog(){
+		
+		edit_Dialog.dispose();
+		
 	}
 
 	public void run() {
