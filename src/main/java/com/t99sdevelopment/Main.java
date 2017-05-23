@@ -5,6 +5,10 @@ package com.t99sdevelopment;
 public class Main {
 	
 	public static final Window mainWindow = new Window();
+	
+	public static final EventLogListener eventLogActionListener = new EventLogListener();
+	public static final LogEditorListener logEditorActionListener = new LogEditorListener();
+	public static final ShutdownListener shutdownActionListener = new ShutdownListener(0);
 
 	public static void main(String[] args){
 		

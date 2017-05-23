@@ -12,12 +12,12 @@ public class LogEditorListener implements ActionListener{
 		
 		int selectedItem_index = Main.mainWindow.log_List.getSelectedIndex();
 		String selectedItem_timestamp = Main.mainWindow.log.getTimestamp(selectedItem_index);
-		String newEvent = Main.mainWindow.getEditedDialogText();
+		String newEvent = Main.mainWindow.edit_Dialog.getEditedDialogText();
 		
 		Main.mainWindow.log.remove(selectedItem_index);
 		Main.mainWindow.log.add(selectedItem_index, selectedItem_timestamp + newEvent);
 		
-		Main.mainWindow.disposeEditDialog();
+		Main.mainWindow.edit_Dialog.disposeEditDialog();
 		
 	}
 	
