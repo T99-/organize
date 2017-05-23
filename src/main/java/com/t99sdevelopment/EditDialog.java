@@ -1,6 +1,6 @@
 package com.t99sdevelopment;
 
-// Created by Trevor Sears <trevorsears.main@gmail.com> @ 10:55 AM - May 23, 2017
+// Created by Trevor Sears <trevorsears.main@gmail.com> @ 10:55 AM - May 23rd, 2017
 
 import javax.swing.*;
 import java.awt.*;

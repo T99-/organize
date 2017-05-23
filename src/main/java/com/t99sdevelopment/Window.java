@@ -1,6 +1,6 @@
 package com.t99sdevelopment;
 
-// Created by Trevor Sears <trevorsears.main@gmail.com> @ 11:45AM - March 16th, 2017.
+// Created by Trevor Sears <trevorsears.main@gmail.com> @ 11:45 AM - March 16th, 2017.
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;

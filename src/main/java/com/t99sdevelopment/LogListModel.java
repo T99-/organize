@@ -1,6 +1,6 @@
 package com.t99sdevelopment;
 
-// Created by Trevor Sears <trevorsears.main@gmail.com> @ 9:26 PM - March 25, 2017
+// Created by Trevor Sears <trevorsears.main@gmail.com> @ 9:26 PM - March 25th, 2017
 
 import org.apache.commons.lang3.StringUtils;
 

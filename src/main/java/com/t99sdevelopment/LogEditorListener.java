@@ -1,6 +1,6 @@
 package com.t99sdevelopment;
 
-// Created by Trevor Sears <trevorsears.main@gmail.com> @ 5:37 PM - March 27, 2017
+// Created by Trevor Sears <trevorsears.main@gmail.com> @ 5:37 PM - March 27th, 2017
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

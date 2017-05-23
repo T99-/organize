@@ -1,6 +1,6 @@
 package com.t99sdevelopment;
 
-// Created by Trevor Sears <trevorsears.main@gmail.com> @ 10:25 AM - March 25, 2017
+// Created by Trevor Sears <trevorsears.main@gmail.com> @ 10:25 AM - March 25th, 2017
 
 import java.util.Formatter;
 import org.apache.commons.lang3.StringUtils;

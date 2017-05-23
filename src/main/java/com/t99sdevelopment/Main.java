@@ -1,6 +1,6 @@
 package com.t99sdevelopment;
 
-// Created by Trevor Sears <trevorsears.main@gmail.com> @ 7:40AM - March 14th, 2017.
+// Created by Trevor Sears <trevorsears.main@gmail.com> @ 7:40 AM - March 14th, 2017.
 
 public class Main {
 	
