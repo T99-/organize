@@ -9,53 +9,53 @@ import javax.swing.*;
 
 public class Window extends JFrame implements Runnable{
 
-	public static LogListModel log = new LogListModel();
+	public LogListModel log = new LogListModel();
 	
-	private static JFrame frame = new JFrame();
+	private JFrame frame = new JFrame();
 	
-		private static JMenuBar menuBar = new JMenuBar();
-		private static JMenu file_Menu = new JMenu("File");
-			private static JMenuItem open_File_MenuItem = new JMenuItem("Open...");
-			private static JMenuItem reset_File_MenuItem = new JMenuItem("Reset Log");
-			private static JMenuItem close_File_MenuItem = new JMenuItem("Close");
-		private static JMenu edit_Menu = new JMenu("Edit");
-			private static JMenuItem undo_Edit_MenuItem = new JMenuItem("Undo");
-			private static JMenuItem redo_Edit_MenuItem = new JMenuItem("Redo");
-		private static JMenu about_Menu = new JMenu("About");
+		private JMenuBar menuBar = new JMenuBar();
+		private JMenu file_Menu = new JMenu("File");
+			private JMenuItem open_File_MenuItem = new JMenuItem("Open...");
+			private JMenuItem reset_File_MenuItem = new JMenuItem("Reset Log");
+			private JMenuItem close_File_MenuItem = new JMenuItem("Close");
+		private JMenu edit_Menu = new JMenu("Edit");
+			private JMenuItem undo_Edit_MenuItem = new JMenuItem("Undo");
+			private JMenuItem redo_Edit_MenuItem = new JMenuItem("Redo");
+		private JMenu about_Menu = new JMenu("About");
 	
-		private static JPanel panel = new JPanel(new GridBagLayout());
-			private static JLabel time_Label = new JLabel();
-			private static JButton submit_Button = new JButton();
-			private static JTextField event_TextField = new JTextField();
-			static JList log_List = new JList(log.toArray()); //not sure if this being public is the best solution to the problem...
-				private static JPopupMenu logCell_PopupMenu = new JPopupMenu();
-					private static JMenuItem edit_logCell_MenuItem = new JMenuItem();
-					private static JMenuItem delete_logCell_MenuItem = new JMenuItem();
-			private static JScrollPane scrollPane = new JScrollPane(log_List, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-			private static JButton close_Button = new JButton();
+		private JPanel panel = new JPanel(new GridBagLayout());
+			private JLabel time_Label = new JLabel();
+			private JButton submit_Button = new JButton();
+			private JTextField event_TextField = new JTextField();
+			JList log_List = new JList(log.toArray()); //not sure if this being public is the best solution to the problem...
+				private JPopupMenu logCell_PopupMenu = new JPopupMenu();
+					private JMenuItem edit_logCell_MenuItem = new JMenuItem();
+					private JMenuItem delete_logCell_MenuItem = new JMenuItem();
+			private JScrollPane scrollPane = new JScrollPane(log_List, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+			private JButton close_Button = new JButton();
 	
-		private static JDialog edit_Dialog = new JDialog(frame);
-			private static JPanel edit_Dialog_Panel = new JPanel();
-				private static JTextField edit_Dialog_edit_TextField = new JTextField();
-				private static JPanel edit_Dialog_subpanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
-				private static JButton edit_Dialog_submit_Button = new JButton();
-				private static JButton edit_Dialog_cancel_Button = new JButton();
+		private JDialog edit_Dialog = new JDialog(frame);
+			private JPanel edit_Dialog_Panel = new JPanel();
+				private JTextField edit_Dialog_edit_TextField = new JTextField();
+				private JPanel edit_Dialog_subpanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
+				private JButton edit_Dialog_submit_Button = new JButton();
+				private JButton edit_Dialog_cancel_Button = new JButton();
 	
-	private static EventLogListener eventLogActionListener = new EventLogListener();
-	private static LogEditorListener logEditorActionListener = new LogEditorListener();
-	private static ShutdownListener shutdownActionListener = new ShutdownListener(0);
+	private EventLogListener eventLogActionListener = new EventLogListener();
+	private LogEditorListener logEditorActionListener = new LogEditorListener();
+	private ShutdownListener shutdownActionListener = new ShutdownListener(0);
 	
-	private static GridBagConstraints constraints = new GridBagConstraints();
+	private GridBagConstraints constraints = new GridBagConstraints();
 	private static Dimension dimension = new Dimension(500, 200);
 
-	public static void showWindow() {
+	public void showWindow() {
 
 		initializeWindow();
 		frame.setVisible(true);
 
 	}
 
-	private static void initializeWindow(){
+	private void initializeWindow(){
 		
 		initializeRightMousePopupMenu();
 		initializeLogItemEditDialog();
@@ -73,7 +73,7 @@ public class Window extends JFrame implements Runnable{
 
 	}
 
-	private static void initializePanel(){
+	private void initializePanel(){
 
 		// Time JLabel (time_Label) option setting...
 		time_Label.setHorizontalAlignment(JTextField.CENTER);
@@ -115,7 +115,7 @@ public class Window extends JFrame implements Runnable{
 		constraints.insets = new Insets(0,3,5,5);
 		panel.add(event_TextField, constraints);
 		
-		// Logs JTextArea (logs_TextArea) option setting...
+		// Logs JList (logs_TextArea) option setting...
 		log_List.setModel(log);
 		constraints.gridx = 0;
 		constraints.gridy = 2;
@@ -145,7 +145,7 @@ public class Window extends JFrame implements Runnable{
 
 	}
 	
-	private static void initializeMenuBar(){
+	private void initializeMenuBar(){
 		
 		open_File_MenuItem.setToolTipText("This doesn't do anything right now!");
 		undo_Edit_MenuItem.setToolTipText("This doesn't do anything right now!");
@@ -170,7 +170,7 @@ public class Window extends JFrame implements Runnable{
 	
 	}
 	
-	private static void initializeRightMousePopupMenu(){
+	private void initializeRightMousePopupMenu(){
 		
 		log_List.addMouseListener(new MouseAdapter(){
 			
@@ -198,7 +198,7 @@ public class Window extends JFrame implements Runnable{
 		
 	}
 	
-	private static void initializeLogItemEditDialog(){
+	private void initializeLogItemEditDialog(){
 		
 		edit_Dialog_Panel.setLayout(new BoxLayout(edit_Dialog_Panel, BoxLayout.Y_AXIS));
 		
@@ -236,7 +236,7 @@ public class Window extends JFrame implements Runnable{
 		
 	}
 	
-	public static void appendNewEvent(String event){
+	public void appendNewEvent(String event){
 
 		log.addElement(new LogItem(event));
 		
@@ -246,19 +246,19 @@ public class Window extends JFrame implements Runnable{
 
 	}
 
-	public static String getEventLogText(){
+	public String getEventLogText(){
 
 		return event_TextField.getText();
 
 	}
 	
-	public static String getEditedDialogText(){
+	public String getEditedDialogText(){
 		
 		return edit_Dialog_edit_TextField.getText();
 		
 	}
 	
-	public static void disposeEditDialog(){
+	public void disposeEditDialog(){
 		
 		edit_Dialog.dispose();
 		

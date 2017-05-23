@@ -8,10 +8,10 @@ import java.awt.event.ActionListener;
 public class EventLogListener implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
+		
+		if(Main.mainWindow.getEventLogText().trim().length() != 0){
 
-		if(Window.getEventLogText().trim().length() != 0){
-
-			Window.appendNewEvent(Window.getEventLogText().trim());
+			Main.mainWindow.appendNewEvent(Main.mainWindow.getEventLogText().trim());
 
 		}
 
