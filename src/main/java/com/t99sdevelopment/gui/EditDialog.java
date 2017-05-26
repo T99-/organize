@@ -1,6 +1,8 @@
-package com.t99sdevelopment;
+package com.t99sdevelopment.gui;
 
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 10:55 AM - May 23rd, 2017
+
+import com.t99sdevelopment.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +23,7 @@ public class EditDialog extends JDialog {
 		
 		// Edit JTextField (edit_Dialog_edit_TextField) option setting...
 		edit_Dialog_edit_TextField.setColumns(50);
-		edit_Dialog_edit_TextField.addActionListener(Main.logEditorActionListener);
+		edit_Dialog_edit_TextField.addActionListener(e -> Main.logEditorActionListener.actionPerformed(e));
 		edit_Dialog_Panel.add(edit_Dialog_edit_TextField);
 		
 		edit_Dialog_Panel.add(Box.createRigidArea(new Dimension(0, 5)));

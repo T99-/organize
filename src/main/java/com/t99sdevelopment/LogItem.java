@@ -12,11 +12,21 @@ public class LogItem{
 	public static final String AM_STRINGVERSION = "AM";
 	public static final String PM_STRINGVERSION = "PM";
 	
+	// Timestamp Info
 	private int hour;
 	private int minute;
 	private int second;
 	private int halfOfDay;
+	
+	// Event Info
 	private String event;
+	private String title;
+	private String description;
+	
+	// Meta-Info
+	private String[] tags;
+	
+	
 	
 	public LogItem(){
 		
@@ -371,11 +381,11 @@ public class LogItem{
 	
 	private boolean isBadFormat(int hour, int minute, int second, int halfOfDay){
 		
-		boolean somethingBadQuestionMark = false;
+		boolean badFormat = false;
 		
 		if(hour < 0 || hour >= 60){
 			
-			somethingBadQuestionMark = true;
+			badFormat = true;
 			
 			//System.err.println("com.t99sdevelopment.LogItem was passed an argument for 'int hour' parameter that did not fall within the real range 0<hour<=12");
 			throw new IllegalArgumentException("com.t99sdevelopment.LogItem was passed an argument for 'int hour' parameter that did not fall within the real range 0<hour<=12");
@@ -384,7 +394,7 @@ public class LogItem{
 		
 		if(minute < 0 || minute >= 60){
 			
-			somethingBadQuestionMark = true;
+			badFormat = true;
 			
 			//System.err.println("com.t99sdevelopment.LogItem was passed an argument for 'int minute' parameter that did not fall within the real range 0<=minute<60");
 			throw new IllegalArgumentException("com.t99sdevelopment.LogItem was passed an argument for 'int minute' parameter that did not fall within the real range 0<=minute<60");
@@ -393,7 +403,7 @@ public class LogItem{
 		
 		if(second < 0 || second >= 60){
 			
-			somethingBadQuestionMark = true;
+			badFormat = true;
 			
 			//System.err.println("com.t99sdevelopment.LogItem was passed an argument for 'int second' parameter that did not fall within the real range 0<=second<60");
 			throw new IllegalArgumentException("com.t99sdevelopment.LogItem was passed an argument for 'int second' parameter that did not fall within the real range 0<=second<60");
@@ -402,14 +412,14 @@ public class LogItem{
 		
 		if(halfOfDay != AM && halfOfDay != PM){
 			
-			somethingBadQuestionMark = true;
+			badFormat = true;
 			
 			//System.err.println("com.t99sdevelopment.LogItem was passed an argument for 'int halfOfDay' parameter that did not correspond to com.t99sdevelopment.LogItem.AM (which evaluates to 0) or to com.t99sdevelopment.LogItem.PM (which evaluates to 1)");
 			throw new IllegalArgumentException("com.t99sdevelopment.LogItem was passed an argument for 'int halfOfDay' parameter that did not correspond to com.t99sdevelopment.LogItem.AM (which evaluates to 0) or to com.t99sdevelopment.LogItem.PM (which evaluates to 1)");
 			
 		}
 		
-		return somethingBadQuestionMark;
+		return badFormat;
 		
 	}
 }

@@ -1,6 +1,8 @@
-package com.t99sdevelopment;
+package com.t99sdevelopment.gui;
 
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 11:17 AM - May 23, 2017
+
+import com.t99sdevelopment.Main;
 
 import javax.swing.*;
 

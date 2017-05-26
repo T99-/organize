@@ -1,8 +1,15 @@
-package com.t99sdevelopment;
+package com.t99sdevelopment.gui;
 
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 11:45 AM - March 16th, 2017.
 
+import com.t99sdevelopment.DateChanger;
+import com.t99sdevelopment.LogItem;
+import com.t99sdevelopment.LogListModel;
+import com.t99sdevelopment.Main;
+
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
@@ -10,16 +17,16 @@ import javax.swing.*;
 public class Window extends JFrame implements Runnable{
 
 	public LogListModel log = new LogListModel();
-	JList log_List = new JList(log.toArray()); //not sure if this being public is the best solution to the problem...
+	public JList log_List = new JList(log.toArray()); // not sure if this being public is the best solution to the problem...
 	
-	private JFrame frame = new JFrame();
-		private Menu menu = new Menu();
-		private JPanel panel = new JPanel(new GridBagLayout());
-		private JLabel time_Label = new JLabel();
-		private JButton submit_Button = new JButton();
-		private JTextField event_TextField = new JTextField();
-		private JScrollPane scrollPane = new JScrollPane(log_List, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		private JButton close_Button = new JButton();
+	public JFrame frame = new JFrame();
+		public Menu menu = new Menu();
+		public JPanel panel = new JPanel(new GridBagLayout());
+		public JLabel time_Label = new JLabel();
+		public JButton submit_Button = new JButton();
+		public JTextField event_TextField = new JTextField();
+		public JScrollPane scrollPane = new JScrollPane(log_List, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		public JButton close_Button = new JButton();
 	
 	public PopupMenu logCell_PopupMenu = new PopupMenu();
 	public EditDialog edit_Dialog = new EditDialog();
@@ -37,7 +44,7 @@ public class Window extends JFrame implements Runnable{
 	private void initializeWindow(){
 		
 		initializeRightMousePopupMenu();
-		initializeMenuBar();
+		initializeEventDeleteKey();
 		frame.setJMenuBar(menu);
 		initializePanel();
 		frame.add(panel);
@@ -123,14 +130,6 @@ public class Window extends JFrame implements Runnable{
 
 	}
 	
-	private void initializeMenuBar(){
-		
-		menu.add(menu.file_Menu);
-		menu.add(menu.edit_Menu);
-		menu.add(menu.about_Menu);
-	
-	}
-	
 	private void initializeRightMousePopupMenu(){
 		
 		Main.mainWindow.log_List.addMouseListener(new MouseAdapter(){
@@ -151,6 +150,40 @@ public class Window extends JFrame implements Runnable{
 		
 	}
 	
+	private void initializeEventDeleteKey(){
+
+		Main.mainWindow.log_List.addKeyListener(new KeyAdapter(){
+			
+			@Override
+			public void keyTyped(KeyEvent e){ /* nothing */ }
+			
+			@Override
+			public void keyPressed(KeyEvent e){ /* nothing */ }
+			
+			@Override
+			public void keyReleased(KeyEvent e){
+				
+				if (!Main.mainWindow.log_List.isSelectionEmpty()) {
+					
+					if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+						
+						Main.mainWindow.log.remove(Main.mainWindow.log_List.getSelectedIndex());
+						
+					} else if (e.getKeyCode() == KeyEvent.VK_E) {
+						
+						Main.mainWindow.edit_Dialog.edit_Dialog_edit_TextField.setText(Main.mainWindow.log.getEvent(Main.mainWindow.log_List.getSelectedIndex()));
+						Main.mainWindow.edit_Dialog.setVisible(true);
+						
+					}
+					
+				}
+				
+			}
+			
+		});
+
+	}
+	
 	public void appendNewEvent(String event){
 
 		log.addElement(new LogItem(event));
@@ -165,6 +198,12 @@ public class Window extends JFrame implements Runnable{
 
 		return event_TextField.getText();
 
+	}
+	
+	public void refreshLogList() {
+		
+		log_List = new JList(log.toArray());
+		
 	}
 
 	public void run() {
