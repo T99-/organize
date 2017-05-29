@@ -5,6 +5,7 @@ package com.t99sdevelopment.gui;
 import com.t99sdevelopment.Debug;
 import com.t99sdevelopment.Main;
 import com.t99sdevelopment.ReadWrite;
+import com.t99sdevelopment.listen.ShutdownListener;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -17,7 +18,7 @@ public class Menu extends JMenuBar {
 		public JMenuItem saveas_File = new JMenuItem("Save As...");
 		public JMenuItem exportas_File =  new JMenuItem("Export As...");
 		public JMenuItem reset_File = new JMenuItem("Reset Log");
-		public JMenuItem close_File = new JMenuItem("Close");
+		public JMenuItem close_File = new JMenuItem("Exit");
 		
 	public JMenu edit = new JMenu("Edit");
 		public JMenuItem undo_Edit = new JMenuItem("Undo");
@@ -36,15 +37,18 @@ public class Menu extends JMenuBar {
 	
 	public Menu() {
 		
-		open_File.setToolTipText("This doesn't do anything right now!");
 		undo_Edit.setToolTipText("This doesn't do anything right now!");
 		redo_Edit.setToolTipText("This doesn't do anything right now!");
 		about_Menu.setToolTipText("This doesn't do anything right now!");
 		
+		open_File.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
+		saveas_File.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+		reset_File.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+		
 		open_File.addActionListener(e -> ReadWrite.read());
 		saveas_File.addActionListener(e -> ReadWrite.write(Main.mainWindow.log));
 		reset_File.addActionListener(e -> Main.mainWindow.log.clear());
-		close_File.addActionListener(e -> Main.shutdownActionListener.actionPerformed(e));
+		close_File.addActionListener(new ShutdownListener());
 		
 		file.add(open_File);
 		file.add(saveas_File);
