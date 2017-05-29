@@ -8,21 +8,21 @@ import java.awt.event.ActionListener;
 
 public class EventLogListener implements ActionListener {
 	
-	private static Window window;
+	private static Window parentWindow;
 	
 	public EventLogListener(Window window) {
 		
-		this.window = window;
+		this.parentWindow = window;
 		
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		
-		String editorText = window.getEventLogText().trim();
+		String editorText = parentWindow.getEventLogText().trim();
 		
 		if (editorText.length() != 0) {
 
-			window.appendNewEvent(editorText);
+			parentWindow.appendNewEvent(editorText);
 
 		}
 

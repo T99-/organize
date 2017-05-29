@@ -13,7 +13,7 @@ import java.util.TimerTask;
 
 public class Panel extends JPanel {
 	
-	Window window;
+	Window parentWindow;
 	
 	public JLabel time_Label = new JLabel();
 	public JButton submit_Button = new JButton();
@@ -34,9 +34,9 @@ public class Panel extends JPanel {
 		
 		super(new GridBagLayout());
 		
-		scrollPane = new JScrollPane(window.log_List, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		parentWindow = window;
 		
-		this.window = window;
+		scrollPane = new JScrollPane(parentWindow.log_List, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		// Time JLabel (time_Label) option setting...
 		time_Label.setHorizontalAlignment(JTextField.CENTER);
@@ -53,7 +53,7 @@ public class Panel extends JPanel {
 		
 		// Submit JButton (submit_Button) option setting...
 		submit_Button.setText("Submit");
-		submit_Button.addActionListener(new EventLogListener(window));
+		submit_Button.addActionListener(new EventLogListener(parentWindow));
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
@@ -67,7 +67,7 @@ public class Panel extends JPanel {
 		// Event JTextField (event_TextField) option setting...
 		event_TextField.setColumns(50);
 		event_TextField.setEditable(true);
-		event_TextField.addActionListener(new EventLogListener(window));
+		event_TextField.addActionListener(new EventLogListener(parentWindow));
 		constraints.gridx = 1;
 		constraints.gridy = 1;
 		constraints.gridwidth = 2;
@@ -79,7 +79,7 @@ public class Panel extends JPanel {
 		this.add(event_TextField, constraints);
 		
 		// Logs JList (logs_TextArea) option setting...
-		window.log_List.setModel(window.log);
+		parentWindow.log_List.setModel(parentWindow.log);
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridwidth = 3;

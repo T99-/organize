@@ -14,7 +14,7 @@ public class LogListModel extends DefaultListModel<String>{
 		
 	}
 	
-	public String getTimestamp(int index){
+	public String getTimestampAt(int index){
 		
 		String parsedElement = elementAt(index);
 		
@@ -22,7 +22,7 @@ public class LogListModel extends DefaultListModel<String>{
 		
 	}
 	
-	public String getEvent(int index){
+	public String getEventAt(int index){
 		
 		String parsedElement = elementAt(index);
 		

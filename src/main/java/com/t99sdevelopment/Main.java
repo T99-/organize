@@ -6,8 +6,6 @@ import com.t99sdevelopment.gui.Window;
 
 public class Main {
 	
-	public static final boolean DEBUG = true;
-	
 	public static Window mainWindow = new Window();
 	
 	public static void main(String[] args){

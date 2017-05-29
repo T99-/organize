@@ -12,6 +12,8 @@ import java.awt.event.KeyEvent;
 
 public class Menu extends JMenuBar {
 	
+	Window parentWindow;
+	
 	public JMenu file = new JMenu("File");
 		public JMenuItem open_File = new JMenuItem("Open...");
 		public JMenuItem save_File = new JMenuItem("Save");
@@ -25,6 +27,7 @@ public class Menu extends JMenuBar {
 		public JMenuItem redo_Edit = new JMenuItem("Redo");
 		
 	public JMenu debug = new JMenu("Debug");
+		public JMenuItem disable_Debug = new JMenuItem("Disable Debug Mode");
 		public JMenu outputLog_Debug = new JMenu("Output to Console");
 			public JMenuItem rawFormat_OutputLog = new JMenuItem("Raw Format");
 			public JMenuItem niceFormat_OutputLog = new JMenuItem("Nice Format");
@@ -35,7 +38,9 @@ public class Menu extends JMenuBar {
 		
 	public JMenu about_Menu = new JMenu("About");
 	
-	public Menu() {
+	public Menu(Window window) {
+		
+		parentWindow = window;
 		
 		undo_Edit.setToolTipText("This doesn't do anything right now!");
 		redo_Edit.setToolTipText("This doesn't do anything right now!");
@@ -46,8 +51,8 @@ public class Menu extends JMenuBar {
 		reset_File.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
 		
 		open_File.addActionListener(e -> ReadWrite.read());
-		saveas_File.addActionListener(e -> ReadWrite.write(Main.mainWindow.log));
-		reset_File.addActionListener(e -> Main.mainWindow.log.clear());
+		saveas_File.addActionListener(e -> ReadWrite.write(parentWindow.log));
+		reset_File.addActionListener(e -> parentWindow.log.clear());
 		close_File.addActionListener(new ShutdownListener());
 		
 		file.add(open_File);
@@ -63,7 +68,11 @@ public class Menu extends JMenuBar {
 		this.add(edit);
 		this.add(about_Menu);
 		
-		if (Main.DEBUG) {
+		if (parentWindow.DEBUG) {
+			
+			disable_Debug.addActionListener(e -> parentWindow.DEBUG = !parentWindow.DEBUG);
+			
+			debug.add(disable_Debug);
 			
 			rawFormat_OutputLog.addActionListener(e -> Debug.outputLog(Debug.RAW_OBJECT));
 			niceFormat_OutputLog.addActionListener(e -> Debug.outputLog(Debug.NICE_FORM));
@@ -96,6 +105,18 @@ public class Menu extends JMenuBar {
 			
 		}
 		
+	}
+	
+	public void toggleDebug() {
+	
+	
+	
+	}
+	
+	public void toggleDebug(boolean state) {
+	
+	
+	
 	}
 	
 }

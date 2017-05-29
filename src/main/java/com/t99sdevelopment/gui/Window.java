@@ -4,7 +4,6 @@ package com.t99sdevelopment.gui;
 
 import com.t99sdevelopment.LogItem;
 import com.t99sdevelopment.LogListModel;
-import com.t99sdevelopment.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,50 +13,44 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Window extends JFrame {
-
+	
+	public static boolean DEBUG = true;
+	
 	public LogListModel log = new LogListModel();
 	public JList log_List = new JList(log.toArray()); // not sure if this being public is the best solution to the problem...
 	
-	public Menu menu = new Menu();
+	public Menu menu = new Menu(this);
 	public Panel panel = new Panel(this);
-	public PopupMenu logCell_PopupMenu = new PopupMenu();
+	public PopupMenu logCell_PopupMenu = new PopupMenu(this);
 	public EditDialog edit_Dialog = new EditDialog(this);
 	
 	private static Dimension dimension = new Dimension(500, 200);
 	
 	public void createWindow() {
-
-		initializeWindow();
-		this.setVisible(true);
-
-	}
-
-	private void initializeWindow(){
 		
-		initializeRightMousePopupMenu();
-		initializeEventDeleteKey();
-		this.setJMenuBar(menu);
-		this.add(panel);
-		this.setTitle("organize");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setMinimumSize(dimension);
-		this.setResizable(false);
-		this.pack();
-		this.setLocationRelativeTo(null);
-		edit_Dialog.setLocationRelativeTo(null);
-
+		initializeWindow(); this.setVisible(true);
+		
 	}
 	
-	private void initializeRightMousePopupMenu(){
+	private void initializeWindow() {
 		
-		Main.mainWindow.log_List.addMouseListener(new MouseAdapter(){
+		initializeRightMousePopupMenu(); initializeEventDeleteKey(); this.setJMenuBar(menu); this.add(panel);
+		this.setTitle("organize"); this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); this.setMinimumSize(dimension);
+		this.setResizable(false); this.pack(); this.setLocationRelativeTo(null);
+		edit_Dialog.setLocationRelativeTo(null);
+		
+	}
+	
+	private void initializeRightMousePopupMenu() {
+		
+		log_List.addMouseListener(new MouseAdapter() {
 			
-			public void mouseReleased(MouseEvent e){
+			public void mouseReleased(MouseEvent e) {
 				
-				if(SwingUtilities.isRightMouseButton(e)){
+				if (SwingUtilities.isRightMouseButton(e)) {
 					
-					Main.mainWindow.log_List.setSelectedIndex(Main.mainWindow.log_List.locationToIndex(e.getPoint()));
-					Main.mainWindow.edit_Dialog.edit_Dialog_edit_TextField.setText(Main.mainWindow.log.getEvent(Main.mainWindow.log_List.getSelectedIndex()));
+					log_List.setSelectedIndex(log_List.locationToIndex(e.getPoint()));
+					edit_Dialog.edit_Dialog_edit_TextField.setText(log.getEventAt(log_List.getSelectedIndex()));
 					logCell_PopupMenu.show(e.getComponent(), e.getX(), e.getY());
 					
 				}
@@ -68,29 +61,29 @@ public class Window extends JFrame {
 		
 	}
 	
-	private void initializeEventDeleteKey(){
-
-		Main.mainWindow.log_List.addKeyListener(new KeyAdapter(){
+	private void initializeEventDeleteKey() {
+		
+		log_List.addKeyListener(new KeyAdapter() {
 			
 			@Override
-			public void keyTyped(KeyEvent e){ /* nothing */ }
+			public void keyTyped(KeyEvent e) { /* nothing */ }
 			
 			@Override
-			public void keyPressed(KeyEvent e){ /* nothing */ }
+			public void keyPressed(KeyEvent e) { /* nothing */ }
 			
 			@Override
-			public void keyReleased(KeyEvent e){
+			public void keyReleased(KeyEvent e) {
 				
-				if (!Main.mainWindow.log_List.isSelectionEmpty()) {
+				if (!log_List.isSelectionEmpty()) {
 					
 					if (e.getKeyCode() == KeyEvent.VK_DELETE) {
 						
-						Main.mainWindow.log.remove(Main.mainWindow.log_List.getSelectedIndex());
+						log.remove(log_List.getSelectedIndex());
 						
 					} else if (e.getKeyCode() == KeyEvent.VK_E) {
 						
-						Main.mainWindow.edit_Dialog.edit_Dialog_edit_TextField.setText(Main.mainWindow.log.getEvent(Main.mainWindow.log_List.getSelectedIndex()));
-						Main.mainWindow.edit_Dialog.setVisible(true);
+						edit_Dialog.edit_Dialog_edit_TextField.setText(log.getEventAt(log_List.getSelectedIndex()));
+						edit_Dialog.setVisible(true);
 						
 					}
 					
@@ -99,23 +92,23 @@ public class Window extends JFrame {
 			}
 			
 		});
-
+		
 	}
 	
-	public void appendNewEvent(String event){
-
+	public void appendNewEvent(String event) {
+		
 		log.addElement(new LogItem(event));
 		
 		log_List.ensureIndexIsVisible(log_List.getModel().getSize() - 1);
 		
 		panel.event_TextField.setText("");
-
+		
 	}
-
-	public String getEventLogText(){
-
+	
+	public String getEventLogText() {
+		
 		return panel.event_TextField.getText();
-
+		
 	}
-
+	
 }

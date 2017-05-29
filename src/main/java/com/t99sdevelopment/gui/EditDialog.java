@@ -2,13 +2,14 @@ package com.t99sdevelopment.gui;
 
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 10:55 AM - May 23rd, 2017
 
-import com.t99sdevelopment.Main;
 import com.t99sdevelopment.listen.LogEditorListener;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class EditDialog extends JDialog {
+	
+	Window parentWindow;
 	
 	public JPanel edit_Dialog_Panel = new JPanel();
 		public JTextField edit_Dialog_edit_TextField = new JTextField();
@@ -18,13 +19,15 @@ public class EditDialog extends JDialog {
 		
 	public EditDialog(Window window) {
 		
+		parentWindow = window;
+		
 		edit_Dialog_Panel.setLayout(new BoxLayout(edit_Dialog_Panel, BoxLayout.Y_AXIS));
 		
 		edit_Dialog_Panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		
 		// Edit JTextField (edit_Dialog_edit_TextField) option setting...
 		edit_Dialog_edit_TextField.setColumns(50);
-		edit_Dialog_edit_TextField.addActionListener(new LogEditorListener(window));
+		edit_Dialog_edit_TextField.addActionListener(new LogEditorListener(parentWindow));
 		edit_Dialog_Panel.add(edit_Dialog_edit_TextField);
 		
 		edit_Dialog_Panel.add(Box.createRigidArea(new Dimension(0, 5)));
@@ -33,7 +36,7 @@ public class EditDialog extends JDialog {
 		
 		// Submit JButton (edit_Dialog_submit_Button) option setting...
 		edit_Dialog_submit_Button.setText("OK");
-		edit_Dialog_submit_Button.addActionListener(new LogEditorListener(window));
+		edit_Dialog_submit_Button.addActionListener(new LogEditorListener(parentWindow));
 		edit_Dialog_subpanel.add(edit_Dialog_submit_Button);
 		
 		// Cancel JButton (edit_Dialog_cancel_Button) option setting...
