@@ -2,13 +2,13 @@ package com.t99sdevelopment.gui;
 
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 8:28 PM - May 28, 2017
 
-import com.t99sdevelopment.DateChanger;
-import com.t99sdevelopment.listen.EventLogListener;
+import com.t99sdevelopment.DateHandler;
+import com.t99sdevelopment.listen.LogItemAdditionLister;
 import com.t99sdevelopment.listen.ShutdownListener;
 
 import javax.swing.*;
-import java.util.Timer;
 import java.awt.*;
+import java.util.Timer;
 import java.util.TimerTask;
 
 public class Panel extends JPanel {
@@ -26,7 +26,7 @@ public class Panel extends JPanel {
 	{
 		
 		Timer updater = new Timer(true);
-		updater.schedule(new TimerTask() { public void run() { time_Label.setText(DateChanger.getTime());} }, 0, 1000);
+		updater.schedule(new TimerTask() { public void run() { time_Label.setText(DateHandler.getTime());} }, 0, 1000);
 		
 	}
 	
@@ -53,7 +53,7 @@ public class Panel extends JPanel {
 		
 		// Submit JButton (submit_Button) option setting...
 		submit_Button.setText("Submit");
-		submit_Button.addActionListener(new EventLogListener(parentWindow));
+		submit_Button.addActionListener(new LogItemAdditionLister(parentWindow));
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
@@ -67,7 +67,7 @@ public class Panel extends JPanel {
 		// Event JTextField (event_TextField) option setting...
 		event_TextField.setColumns(50);
 		event_TextField.setEditable(true);
-		event_TextField.addActionListener(new EventLogListener(parentWindow));
+		event_TextField.addActionListener(new LogItemAdditionLister(parentWindow));
 		constraints.gridx = 1;
 		constraints.gridy = 1;
 		constraints.gridwidth = 2;

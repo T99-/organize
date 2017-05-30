@@ -2,8 +2,8 @@ package com.t99sdevelopment.gui;
 
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 11:45 AM - March 16th, 2017.
 
-import com.t99sdevelopment.LogItem;
-import com.t99sdevelopment.LogListModel;
+import com.t99sdevelopment.log.LogItem;
+import com.t99sdevelopment.log.LogListModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
 
 public class Window extends JFrame {
 	
-	public static boolean DEBUG = true;
+	public static boolean debug = true;
 	
 	public LogListModel log = new LogListModel();
 	public JList log_List = new JList(log.toArray()); // not sure if this being public is the best solution to the problem...
@@ -34,9 +34,16 @@ public class Window extends JFrame {
 	
 	private void initializeWindow() {
 		
-		initializeRightMousePopupMenu(); initializeEventDeleteKey(); this.setJMenuBar(menu); this.add(panel);
-		this.setTitle("organize"); this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); this.setMinimumSize(dimension);
-		this.setResizable(false); this.pack(); this.setLocationRelativeTo(null);
+		initializeRightMousePopupMenu();
+		initializeEventDeleteKey();
+		this.setJMenuBar(menu);
+		this.add(panel);
+		this.setTitle("organize");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setMinimumSize(dimension);
+		this.setResizable(false);
+		this.pack();
+		this.setLocationRelativeTo(null);
 		edit_Dialog.setLocationRelativeTo(null);
 		
 	}

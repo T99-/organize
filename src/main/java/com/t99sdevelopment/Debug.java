@@ -1,8 +1,10 @@
 package com.t99sdevelopment;
 
-// Created by Trevor Sears <trevorsears.main@gmail.com> @ 9:57 AM - May 24, 2017
+// Created by Trevor Sears <trevorsears.main@gmail.com> @ 9:57 AM - May 24th, 2017
 
+import com.t99sdevelopment.gui.Window;
 import com.t99sdevelopment.listen.ShutdownListener;
+import com.t99sdevelopment.log.LogListModel;
 
 public class Debug{
 	
@@ -58,5 +60,18 @@ public class Debug{
 	}
 	
 	public static void watchpointTrigger() { /* Ha! It does nothing, just like it's supposed to! */ }
+	
+	public static void toggleDebug(Window parentWindow) {
+		
+		parentWindow.debug = !parentWindow.debug;
+		parentWindow.menu.toggleDebugVisibility();
+		
+	}
+	
+	public static void setDebug(Window parentWindow, boolean state) {
+		
+		parentWindow.debug = state;
+		
+	}
 	
 }

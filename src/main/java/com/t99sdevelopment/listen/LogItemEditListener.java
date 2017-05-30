@@ -3,15 +3,17 @@ package com.t99sdevelopment.listen;
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 5:37 PM - March 27th, 2017
 
 import com.t99sdevelopment.gui.Window;
+import com.t99sdevelopment.log.LogItem;
+import com.t99sdevelopment.log.LogTimestamp;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LogEditorListener implements ActionListener{
+public class LogItemEditListener implements ActionListener{
 	
 	Window parentWindow;
 	
-	public LogEditorListener(Window window) {
+	public LogItemEditListener(Window window) {
 		
 		this.parentWindow = window;
 		
@@ -19,12 +21,12 @@ public class LogEditorListener implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		
-		int selectedItem_index = parentWindow.log_List.getSelectedIndex();
-		String selectedItem_timestamp = parentWindow.log.getTimestampAt(selectedItem_index);
+		int selectedIndex = parentWindow.log_List.getSelectedIndex();
+		LogTimestamp oldTimestamp = parentWindow.log.getElementAt(selectedIndex).timestamp;
 		String newEvent = parentWindow.edit_Dialog.getEditedDialogText();
 		
-		parentWindow.log.remove(selectedItem_index);
-		parentWindow.log.add(selectedItem_index, selectedItem_timestamp + newEvent);
+		parentWindow.log.remove(selectedIndex);
+		parentWindow.log.add(selectedIndex, new LogItem(newEvent, oldTimestamp));
 		
 		parentWindow.edit_Dialog.disposeEditDialog();
 		

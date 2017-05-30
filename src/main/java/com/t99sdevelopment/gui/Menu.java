@@ -3,7 +3,6 @@ package com.t99sdevelopment.gui;
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 10:46 AM - May 23rd, 2017
 
 import com.t99sdevelopment.Debug;
-import com.t99sdevelopment.Main;
 import com.t99sdevelopment.ReadWrite;
 import com.t99sdevelopment.listen.ShutdownListener;
 
@@ -26,6 +25,8 @@ public class Menu extends JMenuBar {
 		public JMenuItem undo_Edit = new JMenuItem("Undo");
 		public JMenuItem redo_Edit = new JMenuItem("Redo");
 		
+	public JMenu about_Menu = new JMenu("About");
+	
 	public JMenu debug = new JMenu("Debug");
 		public JMenuItem disable_Debug = new JMenuItem("Disable Debug Mode");
 		public JMenu outputLog_Debug = new JMenu("Output to Console");
@@ -34,9 +35,7 @@ public class Menu extends JMenuBar {
 		public JMenu insertEvents_Debug = new JMenu("Output to Log");
 			public JMenuItem eventSeries_InsertEvents = new JMenuItem("Event Series");
 			public JMenuItem pseudoSeries_InsertEvents = new JMenuItem("Psuedo Events");
-		public JMenuItem watchPoint_Debug = new JMenuItem("Watchpoint Trigger");
-		
-	public JMenu about_Menu = new JMenu("About");
+			public JMenuItem watchPoint_Debug = new JMenuItem("Watchpoint Trigger");
 	
 	public Menu(Window window) {
 		
@@ -68,9 +67,13 @@ public class Menu extends JMenuBar {
 		this.add(edit);
 		this.add(about_Menu);
 		
-		if (parentWindow.DEBUG) {
+		if (parentWindow.debug) {
 			
-			disable_Debug.addActionListener(e -> parentWindow.DEBUG = !parentWindow.DEBUG);
+			//TODO - Allow the user to toggle debug back on once it has been disabled via this JMenu.
+			
+			disable_Debug.addActionListener(e -> Debug.toggleDebug(parentWindow));
+			
+			disable_Debug.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK));
 			
 			debug.add(disable_Debug);
 			
@@ -99,24 +102,48 @@ public class Menu extends JMenuBar {
 			
 			this.add(debug);
 			
+		}/* else {
+			
+			this.remove(debug);
+			
+		}*/
+		
+	}
+	
+	public void toggleDebugVisibility() {
+	
+		boolean currentlyVisible = this.isAncestorOf(debug);
+		
+		if (currentlyVisible) {
+			
+			//this.remove(debug);
+			debug.setVisible(false);
+			
 		} else {
+			
+			//this.add(debug);
+			debug.setVisible(true);
+			
+		}
+		
+		this.revalidate();
+	
+	}
+	
+	public void setDebugVisibility(boolean visible) {
+		
+		if (visible && !isAncestorOf(debug)) {
+			
+			this.add(debug);
+			
+		} else if (!visible && this.isAncestorOf(debug)) {
 			
 			this.remove(debug);
 			
 		}
 		
-	}
-	
-	public void toggleDebug() {
-	
-	
-	
-	}
-	
-	public void toggleDebug(boolean state) {
-	
-	
-	
+		this.revalidate();
+		
 	}
 	
 }

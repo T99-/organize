@@ -3,6 +3,7 @@ package com.t99sdevelopment;
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 12:37 PM - May 23rd, 2017
 
 import com.google.gson.Gson;
+import com.t99sdevelopment.log.LogListModel;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
