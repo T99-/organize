@@ -1,12 +1,11 @@
 package com.t99sdevelopment;
 
-// Created by Trevor Sears <trevorsears.main@gmail.com> @ 9:57 AM - May 24th, 2017
+// Created by Trevor Sears <trevorsears.main@gmail.com> @ 9:57 AM - May 24th, 2017.
 
 import com.t99sdevelopment.gui.Window;
-import com.t99sdevelopment.listen.ShutdownListener;
 import com.t99sdevelopment.log.LogListModel;
 
-public class Debug{
+public class Debug {
 	
 	public static final int RAW_OBJECT = 1;
 	public static final int NICE_FORM = 2;
@@ -18,11 +17,7 @@ public class Debug{
 		
 		LogListModel logOutput = Main.mainWindow.log;
 		
-		if (format != RAW_OBJECT && format != NICE_FORM) {
-			
-			return;
-			
-		} else if (format == RAW_OBJECT) {
+		if (format == RAW_OBJECT) {
 			
 			System.out.println("Raw version of log object:");
 			System.out.println(logOutput);
@@ -39,13 +34,9 @@ public class Debug{
 			
 		} else {
 			
-			// Something went seriously wrong, this should not be happening.
-			// Just kill everything, as seen below
-			new ShutdownListener(99999).actionPerformed(null);
+			return;
 			
 		}
-		
-		
 		
 	}
 	

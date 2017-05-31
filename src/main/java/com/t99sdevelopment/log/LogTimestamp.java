@@ -1,6 +1,6 @@
 package com.t99sdevelopment.log;
 
-// Created by Trevor Sears <trevorsears.main@gmail.com> @ 7:26 PM - May 29th, 2017
+// Created by Trevor Sears <trevorsears.main@gmail.com> @ 7:26 PM - May 29th, 2017.
 
 import com.t99sdevelopment.DateHandler;
 import org.apache.commons.lang3.StringUtils;
@@ -9,13 +9,11 @@ import java.util.InputMismatchException;
 
 public class LogTimestamp {
 	
-	// Constants
 	public static final int AM = 0;
 	public static final int PM = 1;
 	public static final String AM_STRINGVERSION = "AM";
 	public static final String PM_STRINGVERSION = "PM";
 	
-	// Timestamp Info
 	private int hour;
 	private int minute;
 	private int second;
@@ -71,7 +69,7 @@ public class LogTimestamp {
 	}
 	
 	@Override
-	public String toString(){
+	public String toString() {
 		
 		String timestamp;
 		
@@ -133,11 +131,11 @@ public class LogTimestamp {
 		
 		LogTimestamp timestamp;
 		
-		try {
-			
+		if (object instanceof LogTimestamp) {
+		
 			timestamp = (LogTimestamp) object;
-			
-		} catch (ClassCastException e) {
+		
+		} else {
 			
 			return false;
 			
@@ -158,7 +156,17 @@ public class LogTimestamp {
 		
 	}
 	
-	public String getStringVersionOfHalfOfDay(int halfOfDay){
+	@Override
+	public int hashCode() {
+		
+		int result = hour;
+		result = 31 * result + minute;
+		result = 31 * result + second;
+		result = 31 * result + halfOfDay;
+		return result;
+	}
+	
+	public String getStringVersionOfHalfOfDay(int halfOfDay) {
 		
 		if(halfOfDay == AM){
 			
@@ -176,7 +184,7 @@ public class LogTimestamp {
 		
 	}
 	
-	private boolean isBadFormat(int hour, int minute, int second, int halfOfDay){
+	private boolean isBadFormat(int hour, int minute, int second, int halfOfDay) {
 		
 		boolean badFormat = false;
 		
@@ -184,7 +192,6 @@ public class LogTimestamp {
 			
 			badFormat = true;
 			
-			//System.err.println("com.t99sdevelopment.log.LogItem was passed an argument for 'int hour' parameter that did not fall within the real range 0<hour<=12");
 			throw new IllegalArgumentException("com.t99sdevelopment.log.LogItem was passed an argument for 'int hour' parameter that did not fall within the real range 0<hour<=12");
 			
 		}
@@ -193,7 +200,6 @@ public class LogTimestamp {
 			
 			badFormat = true;
 			
-			//System.err.println("com.t99sdevelopment.log.LogItem was passed an argument for 'int minute' parameter that did not fall within the real range 0<=minute<60");
 			throw new IllegalArgumentException("com.t99sdevelopment.log.LogItem was passed an argument for 'int minute' parameter that did not fall within the real range 0<=minute<60");
 			
 		}
@@ -202,7 +208,6 @@ public class LogTimestamp {
 			
 			badFormat = true;
 			
-			//System.err.println("com.t99sdevelopment.log.LogItem was passed an argument for 'int second' parameter that did not fall within the real range 0<=second<60");
 			throw new IllegalArgumentException("com.t99sdevelopment.log.LogItem was passed an argument for 'int second' parameter that did not fall within the real range 0<=second<60");
 			
 		}
@@ -211,7 +216,6 @@ public class LogTimestamp {
 			
 			badFormat = true;
 			
-			//System.err.println("com.t99sdevelopment.log.LogItem was passed an argument for 'int halfOfDay' parameter that did not correspond to com.t99sdevelopment.log.LogItem.AM (which evaluates to 0) or to com.t99sdevelopment.log.LogItem.PM (which evaluates to 1)");
 			throw new IllegalArgumentException("com.t99sdevelopment.log.LogItem was passed an argument for 'int halfOfDay' parameter that did not correspond to com.t99sdevelopment.log.LogItem.AM (which evaluates to 0) or to com.t99sdevelopment.log.LogItem.PM (which evaluates to 1)");
 			
 		}
@@ -226,7 +230,7 @@ public class LogTimestamp {
 		
 	}
 	
-	public void setTime(int hour, int minute, int second, int halfOfDay){
+	public void setTime(int hour, int minute, int second, int halfOfDay) {
 		
 		if(!isBadFormat(hour, minute, second, halfOfDay)){
 			
@@ -246,7 +250,7 @@ public class LogTimestamp {
 		
 	}
 	
-	public void setTime(String time){
+	public void setTime(String time) {
 		
 		setTime(
 				parseHour(time),
@@ -257,7 +261,7 @@ public class LogTimestamp {
 		
 	}
 	
-	public void setHour(int hour){
+	public void setHour(int hour) {
 		
 		if(hour < 13){
 			
@@ -273,19 +277,19 @@ public class LogTimestamp {
 		
 	}
 	
-	public void setMinute(int minute){
+	public void setMinute(int minute) {
 		
 		this.minute = minute;
 		
 	}
 	
-	public void setSecond(int second){
+	public void setSecond(int second) {
 		
 		this.second = second;
 		
 	}
 	
-	public boolean setHalfOfDay(int halfOfDay){
+	public boolean setHalfOfDay(int halfOfDay) {
 		
 		if(halfOfDay == AM){
 			
@@ -305,7 +309,7 @@ public class LogTimestamp {
 		
 	}
 	
-	public boolean setHalfOfDay(String halfOfDay){
+	public boolean setHalfOfDay(String halfOfDay) {
 		
 		if(halfOfDay.equals(AM_STRINGVERSION)){
 			
@@ -325,49 +329,49 @@ public class LogTimestamp {
 		
 	}
 	
-	public int incrementHour(){
+	public int incrementHour() {
 		
 		this.hour++;
 		return this.hour;
 		
 	}
 	
-	public int decrementHour(){
+	public int decrementHour() {
 		
 		this.hour--;
 		return this.hour;
 		
 	}
 	
-	public int incrementMinute(){
+	public int incrementMinute() {
 		
 		this.minute++;
 		return this.minute;
 		
 	}
 	
-	public int decrementMinute(){
+	public int decrementMinute() {
 		
 		this.minute--;
 		return this.minute;
 		
 	}
 	
-	public int incrementSecond(){
+	public int incrementSecond() {
 		
 		this.second++;
 		return this.second;
 		
 	}
 	
-	public int decrementSecond(){
+	public int decrementSecond() {
 		
 		this.second--;
 		return this.second;
 		
 	}
 	
-	public String changeHalfOfDay(){
+	public String changeHalfOfDay() {
 		
 		if(this.halfOfDay == AM){
 			
@@ -395,25 +399,25 @@ public class LogTimestamp {
 		
 	}
 	
-	public int getHour(){
+	public int getHour() {
 		
 		return hour;
 		
 	}
 	
-	public int getMinute(){
+	public int getMinute() {
 		
 		return minute;
 		
 	}
 	
-	public int getSecond(){
+	public int getSecond() {
 		
 		return second;
 		
 	}
 	
-	public int getHalfOfDay(){
+	public int getHalfOfDay() {
 		
 		return halfOfDay;
 		

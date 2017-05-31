@@ -1,24 +1,24 @@
 package com.t99sdevelopment.log;
 
-// Created by Trevor Sears <trevorsears.main@gmail.com> @ 9:26 PM - March 25th, 2017
+// Created by Trevor Sears <trevorsears.main@gmail.com> @ 9:26 PM - March 25th, 2017.
 
 import javax.swing.*;
 
-public class LogListModel extends DefaultListModel<LogItem>{
+public class LogListModel extends DefaultListModel<LogItem> {
 	
-	public void addElement(LogItem logItem){
+	public void addElement(LogItem logItem) {
 		
 		super.addElement(logItem);
 		
 	}
 	
-	public String getTimestampAt(int index){
+	public String getTimestampAt(int index) {
 		
-		return elementAt(index).timestamp.toString();
+		return elementAt(index).getTimestamp().toString();
 		
 	}
 	
-	public String getEventAt(int index){
+	public String getEventAt(int index) {
 		
 		return elementAt(index).getEvent();
 		

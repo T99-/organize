@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class LogItemAdditionLister implements ActionListener {
 	
-	private static Window parentWindow;
+	private Window parentWindow;
 	
 	public LogItemAdditionLister(Window window) {
 		

@@ -1,42 +1,37 @@
 package com.t99sdevelopment;
 
-// Created by Trevor Sears <trevorsears.main@gmail.com> @ 8:10AM - March 14th, 2017.
+// Created by Trevor Sears <trevorsears.main@gmail.com> @ 8:10 AM - March 14th, 2017.
 
 import com.t99sdevelopment.log.LogTimestamp;
+
 import org.joda.time.DateTime;
 
 public class DateHandler {
 
-	public static String getTime(){
-
-		return timeFinder();
-
-	}
-
-	private static String timeFinder() {
-
+	public static String getTime() {
+		
 		DateTime time = new DateTime();
 		int preHour = time.getHourOfDay();
 		int hour;
 		String AMPM;
-
+		
 		if (preHour < 13) {
-
+			
 			hour = preHour;
 			AMPM = "AM";
-
+			
 		} else if (preHour >= 13) {
-
+			
 			hour = preHour - 12;
 			AMPM = "PM";
-
+			
 		} else {
-
+			
 			hour = 0;
 			AMPM = "ERR";
-
+			
 		}
-
+		
 		return String.format("%02d:%02d:%02d %s", hour, time.getMinuteOfHour(), time.getSecondOfMinute(), AMPM);
 
 	}
@@ -113,7 +108,7 @@ public class DateHandler {
 		
 	}
 	
-	public static String getStringCurrentHalfOfDay() {
+	public static String getCurrentHalfOfDayString() {
 		
 		int hour = new DateTime().getHourOfDay();
 		

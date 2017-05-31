@@ -1,6 +1,6 @@
 package com.t99sdevelopment.gui;
 
-// Created by Trevor Sears <trevorsears.main@gmail.com> @ 8:28 PM - May 28, 2017
+// Created by Trevor Sears <trevorsears.main@gmail.com> @ 8:28 PM - May 28, 2017.
 
 import com.t99sdevelopment.DateHandler;
 import com.t99sdevelopment.listen.LogItemAdditionLister;
@@ -13,7 +13,7 @@ import java.util.TimerTask;
 
 public class Panel extends JPanel {
 	
-	Window parentWindow;
+	private Window parentWindow;
 	
 	public JLabel time_Label = new JLabel();
 	public JButton submit_Button = new JButton();
@@ -23,16 +23,12 @@ public class Panel extends JPanel {
 	
 	private GridBagConstraints constraints = new GridBagConstraints();
 	
-	{
+	Panel(Window window) {
+		
+		super(new GridBagLayout());
 		
 		Timer updater = new Timer(true);
 		updater.schedule(new TimerTask() { public void run() { time_Label.setText(DateHandler.getTime());} }, 0, 1000);
-		
-	}
-	
-	public Panel(Window window) {
-		
-		super(new GridBagLayout());
 		
 		parentWindow = window;
 		

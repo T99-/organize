@@ -17,12 +17,12 @@ public class Window extends JFrame {
 	public static boolean debug = true;
 	
 	public LogListModel log = new LogListModel();
-	public JList log_List = new JList(log.toArray()); // not sure if this being public is the best solution to the problem...
+	public JList log_List = new JList(log.toArray());
 	
 	public Menu menu = new Menu(this);
 	public Panel panel = new Panel(this);
 	public PopupMenu logCell_PopupMenu = new PopupMenu(this);
-	public EditDialog edit_Dialog = new EditDialog(this);
+	public EditDialog editDialog = new EditDialog(this);
 	
 	private static Dimension dimension = new Dimension(500, 200);
 	
@@ -44,7 +44,7 @@ public class Window extends JFrame {
 		this.setResizable(false);
 		this.pack();
 		this.setLocationRelativeTo(null);
-		edit_Dialog.setLocationRelativeTo(null);
+		editDialog.setLocationRelativeTo(null);
 		
 	}
 	
@@ -57,7 +57,7 @@ public class Window extends JFrame {
 				if (SwingUtilities.isRightMouseButton(e)) {
 					
 					log_List.setSelectedIndex(log_List.locationToIndex(e.getPoint()));
-					edit_Dialog.edit_Dialog_edit_TextField.setText(log.getEventAt(log_List.getSelectedIndex()));
+					editDialog.setText(log.getEventAt(log_List.getSelectedIndex()));
 					logCell_PopupMenu.show(e.getComponent(), e.getX(), e.getY());
 					
 				}
@@ -89,8 +89,8 @@ public class Window extends JFrame {
 						
 					} else if (e.getKeyCode() == KeyEvent.VK_E) {
 						
-						edit_Dialog.edit_Dialog_edit_TextField.setText(log.getEventAt(log_List.getSelectedIndex()));
-						edit_Dialog.setVisible(true);
+						editDialog.setText(log.getEventAt(log_List.getSelectedIndex()));
+						editDialog.setVisible(true);
 						
 					}
 					

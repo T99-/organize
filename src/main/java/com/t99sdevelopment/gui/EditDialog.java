@@ -1,71 +1,71 @@
 package com.t99sdevelopment.gui;
 
-// Created by Trevor Sears <trevorsears.main@gmail.com> @ 10:55 AM - May 23rd, 2017
+// Created by Trevor Sears <trevorsears.main@gmail.com> @ 10:55 AM - May 23rd, 2017.
 
 import com.t99sdevelopment.listen.LogItemEditListener;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class EditDialog extends JDialog {
 	
-	Window parentWindow;
+	private Window parentWindow;
 	
-	public JPanel edit_Dialog_Panel = new JPanel();
-		public JTextField edit_Dialog_edit_TextField = new JTextField();
-		public JPanel edit_Dialog_subpanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
-		public JButton edit_Dialog_submit_Button = new JButton();
-		public JButton edit_Dialog_cancel_Button = new JButton();
+	private JPanel panel = new JPanel();
+		private JTextField edit_TextField = new JTextField();
+		private JPanel buttons_SubPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
+		private JButton submit_Button = new JButton();
+		private JButton cancel_Button = new JButton();
 		
-	public EditDialog(Window window) {
+	EditDialog(Window window) {
 		
 		parentWindow = window;
 		
-		edit_Dialog_Panel.setLayout(new BoxLayout(edit_Dialog_Panel, BoxLayout.Y_AXIS));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
-		edit_Dialog_Panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		
-		// Edit JTextField (edit_Dialog_edit_TextField) option setting...
-		edit_Dialog_edit_TextField.setColumns(50);
-		edit_Dialog_edit_TextField.addActionListener(new LogItemEditListener(parentWindow));
-		edit_Dialog_Panel.add(edit_Dialog_edit_TextField);
+		// Edit JTextField (edit_TextField) option setting...
+		edit_TextField.setColumns(50);
+		edit_TextField.addActionListener(new LogItemEditListener(parentWindow));
+		panel.add(edit_TextField);
 		
-		edit_Dialog_Panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		
-		edit_Dialog_subpanel.add(Box.createRigidArea(new Dimension(250, 0)));
+		buttons_SubPanel.add(Box.createRigidArea(new Dimension(250, 0)));
 		
-		// Submit JButton (edit_Dialog_submit_Button) option setting...
-		edit_Dialog_submit_Button.setText("OK");
-		edit_Dialog_submit_Button.addActionListener(new LogItemEditListener(parentWindow));
-		edit_Dialog_subpanel.add(edit_Dialog_submit_Button);
+		// Submit JButton (submit_Button) option setting...
+		submit_Button.setText("OK");
+		submit_Button.addActionListener(new LogItemEditListener(parentWindow));
+		buttons_SubPanel.add(submit_Button);
 		
-		// Cancel JButton (edit_Dialog_cancel_Button) option setting...
-		edit_Dialog_cancel_Button.setText("Cancel");
-		edit_Dialog_cancel_Button.addActionListener(e -> disposeEditDialog());
-		edit_Dialog_subpanel.setBackground(new Color(35, 100, 50, 1));
-		edit_Dialog_subpanel.add(edit_Dialog_cancel_Button);
+		// Cancel JButton (cancel_Button) option setting...
+		cancel_Button.setText("Cancel");
+		cancel_Button.addActionListener(e -> disposeEditDialog());
+		buttons_SubPanel.setBackground(new Color(35, 100, 50, 1));
+		buttons_SubPanel.add(cancel_Button);
 		
-		edit_Dialog_Panel.add(edit_Dialog_subpanel);
-		edit_Dialog_Panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		panel.add(buttons_SubPanel);
+		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		
 		this.setModal(true);
 		this.setSize(new Dimension(500, 150));
 		this.setTitle("Edit");
-		this.add(edit_Dialog_Panel);
+		this.add(panel);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.pack();
 		
 	}
 	
-	public void setTextFieldText(String text) {
+	public void setText(String text) {
 		
-		edit_Dialog_edit_TextField.setText(text);
+		edit_TextField.setText(text);
 		
 	}
 	
 	public String getEditedDialogText(){
 		
-		return edit_Dialog_edit_TextField.getText();
+		return edit_TextField.getText();
 		
 	}
 	

@@ -5,17 +5,17 @@ package com.t99sdevelopment.listen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ShutdownListener implements ActionListener{
+public class ShutdownListener implements ActionListener {
 
-	int exitStatus = 0;
+	private static int exitStatus;
 
-	public ShutdownListener(int exitStatus){
+	public ShutdownListener(int exitStatus) {
 
 		this.exitStatus = exitStatus;
 
 	}
 
-	public ShutdownListener(){
+	public ShutdownListener() {
 
 		this.exitStatus = 0;
 
