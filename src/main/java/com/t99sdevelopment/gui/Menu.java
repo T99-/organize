@@ -34,7 +34,7 @@ public class Menu extends JMenuBar {
 			private JMenuItem niceFormat_OutputLog = new JMenuItem("Nice Format");
 		private JMenu insertEvents_Debug = new JMenu("Output to Log");
 			private JMenuItem eventSeries_InsertEvents = new JMenuItem("Event Series");
-			private JMenuItem pseudoSeries_InsertEvents = new JMenuItem("Psuedo Events");
+			private JMenuItem pseudoSeries_InsertEvents = new JMenuItem("Pseudo Events");
 			private JMenuItem watchPoint_Debug = new JMenuItem("Watchpoint Trigger");
 	
 	Menu(Window window) {
