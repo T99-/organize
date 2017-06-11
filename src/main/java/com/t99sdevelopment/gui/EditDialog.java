@@ -63,13 +63,13 @@ public class EditDialog extends JDialog {
 		
 	}
 	
-	public String getEditedDialogText(){
+	public String getEditedDialogText() {
 		
 		return edit_TextField.getText();
 		
 	}
 	
-	public void disposeEditDialog(){
+	public void disposeEditDialog() {
 		
 		this.dispose();
 		

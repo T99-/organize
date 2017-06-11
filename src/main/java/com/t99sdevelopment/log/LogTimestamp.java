@@ -78,7 +78,7 @@ public class LogTimestamp {
 		String second_String;
 		String halfOfDay_String = getStringVersionOfHalfOfDay(this.halfOfDay);
 		
-		if(Integer.toString(this.hour).length() < 2){
+		if(Integer.toString(this.hour).length() < 2) {
 			
 			hour_String = "0" + Integer.toString(this.hour);
 			
@@ -92,11 +92,11 @@ public class LogTimestamp {
 			
 		}
 		
-		if(Integer.toString(this.minute).length() < 2){
+		if (Integer.toString(this.minute).length() < 2) {
 			
 			minute_String = "0" + Integer.toString(this.minute);
 			
-		} else if(Integer.toString(this.minute).length() == 2) {
+		} else if (Integer.toString(this.minute).length() == 2) {
 			
 			minute_String = Integer.toString(this.minute);
 			
@@ -106,7 +106,7 @@ public class LogTimestamp {
 			
 		}
 		
-		if(Integer.toString(this.second).length() < 2){
+		if(Integer.toString(this.second).length() < 2) {
 			
 			second_String = "0" + Integer.toString(this.second);
 			
@@ -168,11 +168,11 @@ public class LogTimestamp {
 	
 	public String getStringVersionOfHalfOfDay(int halfOfDay) {
 		
-		if(halfOfDay == AM){
+		if (halfOfDay == AM) {
 			
 			return AM_STRINGVERSION;
 			
-		} else if(halfOfDay == PM) {
+		} else if (halfOfDay == PM) {
 			
 			return PM_STRINGVERSION;
 			
@@ -188,7 +188,7 @@ public class LogTimestamp {
 		
 		boolean badFormat = false;
 		
-		if(hour < 0 || hour >= 60){
+		if(hour < 0 || hour >= 60) {
 			
 			badFormat = true;
 			
@@ -196,7 +196,7 @@ public class LogTimestamp {
 			
 		}
 		
-		if(minute < 0 || minute >= 60){
+		if (minute < 0 || minute >= 60) {
 			
 			badFormat = true;
 			
@@ -204,7 +204,7 @@ public class LogTimestamp {
 			
 		}
 		
-		if(second < 0 || second >= 60){
+		if (second < 0 || second >= 60) {
 			
 			badFormat = true;
 			
@@ -212,7 +212,7 @@ public class LogTimestamp {
 			
 		}
 		
-		if(halfOfDay != AM && halfOfDay != PM){
+		if (halfOfDay != AM && halfOfDay != PM) {
 			
 			badFormat = true;
 			
@@ -232,7 +232,7 @@ public class LogTimestamp {
 	
 	public void setTime(int hour, int minute, int second, int halfOfDay) {
 		
-		if(!isBadFormat(hour, minute, second, halfOfDay)){
+		if (!isBadFormat(hour, minute, second, halfOfDay)) {
 			
 			this.hour = hour;
 			this.minute = minute;
@@ -263,7 +263,7 @@ public class LogTimestamp {
 	
 	public void setHour(int hour) {
 		
-		if(hour < 13){
+		if (hour < 13) {
 			
 			this.hour = hour;
 			this.halfOfDay = AM;
@@ -291,7 +291,7 @@ public class LogTimestamp {
 	
 	public boolean setHalfOfDay(int halfOfDay) {
 		
-		if(halfOfDay == AM){
+		if (halfOfDay == AM) {
 			
 			this.halfOfDay = AM;
 			return true;
@@ -311,12 +311,12 @@ public class LogTimestamp {
 	
 	public boolean setHalfOfDay(String halfOfDay) {
 		
-		if(halfOfDay.equals(AM_STRINGVERSION)){
+		if (halfOfDay.equals(AM_STRINGVERSION)) {
 			
 			this.halfOfDay = AM;
 			return true;
 			
-		} else if(halfOfDay.equals(PM_STRINGVERSION)) {
+		} else if (halfOfDay.equals(PM_STRINGVERSION)) {
 			
 			this.halfOfDay = PM;
 			return true;
@@ -373,7 +373,7 @@ public class LogTimestamp {
 	
 	public String changeHalfOfDay() {
 		
-		if(this.halfOfDay == AM){
+		if (this.halfOfDay == AM) {
 			
 			this.halfOfDay = PM;
 			
@@ -383,11 +383,11 @@ public class LogTimestamp {
 			
 		}
 		
-		if(halfOfDay == AM){
+		if (halfOfDay == AM) {
 			
 			return AM_STRINGVERSION;
 			
-		} else if(halfOfDay == PM) {
+		} else if (halfOfDay == PM) {
 			
 			return PM_STRINGVERSION;
 			
@@ -445,7 +445,7 @@ public class LogTimestamp {
 		
 		String halfOfDay = time.substring(time.length() - 2, time.length() - 1).toUpperCase();
 		
-		if(halfOfDay.equals(AM_STRINGVERSION)){
+		if(halfOfDay.equals(AM_STRINGVERSION)) {
 			
 			return AM;
 			

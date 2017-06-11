@@ -3,7 +3,7 @@ package com.t99sdevelopment.gui;
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 11:45 AM - March 16th, 2017.
 
 import com.t99sdevelopment.log.LogItem;
-import com.t99sdevelopment.log.LogListModel;
+import com.t99sdevelopment.log.LogItemListModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,13 +11,19 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.Properties;
 
 public class Window extends JFrame {
 	
 	public static boolean debug = true;
 	
-	public LogListModel log = new LogListModel();
-	public JList log_List = new JList(log.toArray());
+	public LogItemListModel log = new LogItemListModel();
+	public JList log_List = new JList<>(log.toArray());
+	
+	public Properties properties = new Properties();
 	
 	public Menu menu = new Menu(this);
 	public Panel panel = new Panel(this);
@@ -26,9 +32,41 @@ public class Window extends JFrame {
 	
 	private static Dimension dimension = new Dimension(500, 200);
 	
+	public Window() {
+	
+		try {
+		
+			properties.load(new FileInputStream("/home/trevor/properties"));
+			
+		} catch (IOException e) {
+		
+		
+		
+		} catch (Exception e) {
+		
+		
+		
+		} finally {
+			
+			Enumeration elementNames = properties.propertyNames();
+			
+			while (elementNames.hasMoreElements()) {
+			
+				String key = (String) elementNames.nextElement();
+				String value = (String) properties.getProperty(key);
+				
+				System.out.println(key + " -> " + value);
+			
+			}
+		
+		}
+	
+	}
+	
 	public void createWindow() {
 		
-		initializeWindow(); this.setVisible(true);
+		initializeWindow();
+		this.setVisible(true);
 		
 	}
 	
@@ -47,6 +85,12 @@ public class Window extends JFrame {
 		editDialog.setLocationRelativeTo(null);
 		
 	}
+	
+//	public void reloadProperties() {
+//
+//
+//
+//	}
 	
 	private void initializeRightMousePopupMenu() {
 		
@@ -85,7 +129,24 @@ public class Window extends JFrame {
 					
 					if (e.getKeyCode() == KeyEvent.VK_DELETE) {
 						
-						log.remove(log_List.getSelectedIndex());
+						int selectedIndex = log_List.getSelectedIndex();
+						
+						if (log.size() > 0) {
+							
+							if (selectedIndex > 0) {
+								
+								log.remove(selectedIndex);
+								log_List.setSelectedIndex(selectedIndex - 1);
+								
+							} else {
+								
+								log.remove(selectedIndex);
+								log_List.setSelectedIndex(selectedIndex);
+								
+							}
+							
+						}
+						
 						
 					} else if (e.getKeyCode() == KeyEvent.VK_E) {
 						

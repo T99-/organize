@@ -4,11 +4,11 @@ package com.t99sdevelopment.log;
 
 import javax.swing.*;
 
-public class LogListModel extends DefaultListModel<LogItem> {
+public class LogItemListModel extends DefaultListModel<LogItem> {
 	
 	public void addElement(LogItem logItem) {
 		
-		super.addElement(logItem);
+		this.addElement(logItem);
 		
 	}
 	

@@ -2,7 +2,8 @@ package com.t99sdevelopment;
 
 // Created by Trevor Sears <trevorsears.main@gmail.com> @ 12:37 PM - May 23rd, 2017.
 
-import com.t99sdevelopment.log.LogListModel;
+import com.t99sdevelopment.gui.Window;
+import com.t99sdevelopment.log.LogItemListModel;
 
 import com.google.gson.Gson;
 
@@ -16,7 +17,7 @@ public class ReadWrite {
 	static final FileNameExtensionFilter logFilter = new FileNameExtensionFilter("Log Files", "log");
 	static final FileNameExtensionFilter txtFilter = new FileNameExtensionFilter("Text Files", "txt");
 	
-	public static void write(Object obj) {
+	public static void write(Window parentWindow, Object obj) {
 		
 		JFileChooser chooser = new JFileChooser();
 		
@@ -26,7 +27,7 @@ public class ReadWrite {
 		chooser.addChoosableFileFilter(txtFilter);
 		chooser.setFileFilter(logFilter);
 		
-		int k = chooser.showSaveDialog(Main.mainWindow);
+		int k = chooser.showSaveDialog(parentWindow);
 		
 		if (k == JFileChooser.APPROVE_OPTION) {
 		
@@ -41,27 +42,36 @@ public class ReadWrite {
 			
 			file = new File(fileName);
 			
-			try {
+			if (parentWindow.log.size() != 0) {
 				
-				FileWriter writer = new FileWriter(file);
-				BufferedWriter bufferedWriter = new BufferedWriter(writer);
+				try {
+					
+					FileWriter writer = new FileWriter(file);
+					BufferedWriter bufferedWriter = new BufferedWriter(writer);
+					
+					converter.toJson(obj, bufferedWriter);
+					
+					bufferedWriter.close();
+					
+					
+				} catch(IOException e) {
+					
+					JOptionPane.showMessageDialog(parentWindow, "There was a problem saving the file...");
+					write(parentWindow, obj);
+					
+				}
+			
+			} else {
 				
-				converter.toJson(obj, bufferedWriter);
-				
-				bufferedWriter.close();
-				
-				
-			} catch(IOException e) {
-				
-				System.out.println("There was an problem opening the file...");
-				
+				JOptionPane.showMessageDialog(parentWindow, "You can't save an empty file!");
+			
 			}
 			
 		}
 		
 	}
 	
-	public static void read() {
+	public static void read(Window parentWindow) {
 		
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -70,7 +80,7 @@ public class ReadWrite {
 		chooser.addChoosableFileFilter(txtFilter);
 		chooser.setFileFilter(logFilter);
 		
-		int k = chooser.showOpenDialog(Main.mainWindow);
+		int k = chooser.showOpenDialog(parentWindow);
 		
 		if (k == JFileChooser.APPROVE_OPTION) {
 			
@@ -78,12 +88,13 @@ public class ReadWrite {
 			
 			try {
 				
-				Main.mainWindow.log = converter.fromJson(new FileReader(file), LogListModel.class);
-				Main.mainWindow.log_List.setModel(Main.mainWindow.log);
+				parentWindow.log = converter.fromJson(new FileReader(file), LogItemListModel.class);
+				parentWindow.log_List.setModel(parentWindow.log);
 				
 			} catch (IOException e) {
 				
-				System.out.println("There was a problem reading from the file...");
+				JOptionPane.showMessageDialog(parentWindow, "There was a problem opening the file...");
+				read(parentWindow);
 				
 			}
 			

@@ -11,6 +11,7 @@ public class LogItem {
 	private String description;
 	
 	private LogTimestamp timestamp;
+	private LogTagListModel tags = new LogTagListModel();
 	
 	public LogItem() {
 		

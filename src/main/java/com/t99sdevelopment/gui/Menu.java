@@ -37,7 +37,7 @@ public class Menu extends JMenuBar {
 			private JMenuItem pseudoSeries_InsertEvents = new JMenuItem("Pseudo Events");
 			private JMenuItem watchPoint_Debug = new JMenuItem("Watchpoint Trigger");
 	
-	Menu(Window window) {
+	Menu (Window window) {
 		
 		parentWindow = window;
 		
@@ -49,8 +49,8 @@ public class Menu extends JMenuBar {
 		saveas_File.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
 		reset_File.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
 		
-		open_File.addActionListener(e -> ReadWrite.read());
-		saveas_File.addActionListener(e -> ReadWrite.write(parentWindow.log));
+		open_File.addActionListener(e -> ReadWrite.read(parentWindow));
+		saveas_File.addActionListener(e -> ReadWrite.write(parentWindow, parentWindow.log));
 		reset_File.addActionListener(e -> parentWindow.log.clear());
 		close_File.addActionListener(new ShutdownListener());
 		
@@ -77,16 +77,16 @@ public class Menu extends JMenuBar {
 			
 			debug.add(disable_Debug);
 			
-			rawFormat_OutputLog.addActionListener(e -> Debug.outputLog(Debug.RAW_OBJECT));
-			niceFormat_OutputLog.addActionListener(e -> Debug.outputLog(Debug.NICE_FORM));
+			rawFormat_OutputLog.addActionListener(e -> Debug.outputLog(parentWindow, Debug.RAW_OBJECT));
+			niceFormat_OutputLog.addActionListener(e -> Debug.outputLog(parentWindow, Debug.NICE_FORM));
 			
 			outputLog_Debug.add(rawFormat_OutputLog);
 			outputLog_Debug.add(niceFormat_OutputLog);
 			
 			debug.add(outputLog_Debug);
 			
-			eventSeries_InsertEvents.addActionListener(e -> Debug.insertEvents(Debug.SERIES_EVENTS));
-			pseudoSeries_InsertEvents.addActionListener(e -> Debug.insertEvents(Debug.SERIES_PSEUDO));
+			eventSeries_InsertEvents.addActionListener(e -> Debug.insertEvents(parentWindow, Debug.SERIES_EVENTS));
+			pseudoSeries_InsertEvents.addActionListener(e -> Debug.insertEvents(parentWindow, Debug.SERIES_PSEUDO));
 			
 			insertEvents_Debug.add(eventSeries_InsertEvents);
 			insertEvents_Debug.add(pseudoSeries_InsertEvents);
@@ -102,11 +102,7 @@ public class Menu extends JMenuBar {
 			
 			this.add(debug);
 			
-		}/* else {
-			
-			this.remove(debug);
-			
-		}*/
+		}
 		
 	}
 	
